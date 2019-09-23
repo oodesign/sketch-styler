@@ -1,7 +1,6 @@
 {
   "compatibleVersion": 58,
   "identifier": "com.oodesign.sketchstyler",
-  "version": "1.0.0",
   "name": "Sketch Styler",
   "icon": "icon.png",
   "description": "Styler assigns styles automatically to all of your unstyled layers.",
@@ -62,6 +61,7 @@
       "assign-styles-automatically.styledocument"
     ]
   },
+  "version": "1.2.1",
   "disableCocoaScriptPreprocessor": true,
   "appcast": "https://raw.githubusercontent.com/oodesign/sketch-styler/master/.appcast.xml"
 }
