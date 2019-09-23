@@ -1,7 +1,7 @@
 {
   "compatibleVersion": 58,
   "identifier" : "com.oodesign.sketchstyler",
-  "version" : "1.0.0",
+  "version" : "1.2.0",
   "name" : "Sketch Styler",
 	"icon" : "icon.png",
   "description": "Styler assigns styles automatically to all of your unstyled layers.",
