@@ -1,4 +1,4 @@
-<img src="https://github.com/oodesign/arrange-artboards-hierarchically/blob/master/Images/Hero.jpg" alt="Arrange Artboards Hierarchically logo"/>
+<img src="https://github.com/oodesign/sketch-styler/blob/master/resources/images/Hero.jpg" alt="Sketch Styler logo"/>
 
 # Sketch Styler (Sketch plugin)
 
