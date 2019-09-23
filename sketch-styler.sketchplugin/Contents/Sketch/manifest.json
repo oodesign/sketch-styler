@@ -1,0 +1,67 @@
+{
+  "compatibleVersion": 58,
+  "identifier": "com.oodesign.sketchstyler",
+  "version": "1.0.0",
+  "name": "Sketch Styler",
+  "icon": "icon.png",
+  "description": "Styler assigns styles automatically to all of your unstyled layers.",
+  "author": "oodesign",
+  "homepage": "http://bit.ly/sketchstyler",
+  "commands": [
+    {
+      "name": "Selected Text",
+      "identifier": "assign-styles-automatically.styleselectedtext",
+      "script": "AssignStylesAutomatically.js",
+      "handlers": {
+        "run": "onScanLayer",
+        "actions": {
+          "Shutdown": "onShutdown"
+        }
+      }
+    },
+    {
+      "name": "Selected Artboard",
+      "identifier": "assign-styles-automatically.styleselectedartboard",
+      "script": "AssignStylesAutomatically.js",
+      "handlers": {
+        "run": "onScanArtboard",
+        "actions": {
+          "Shutdown": "onShutdown"
+        }
+      }
+    },
+    {
+      "name": "Selected Page",
+      "identifier": "assign-styles-automatically.styleselectedpage",
+      "script": "AssignStylesAutomatically.js",
+      "handlers": {
+        "run": "onScanPage",
+        "actions": {
+          "Shutdown": "onShutdown"
+        }
+      }
+    },
+    {
+      "name": "Full Document",
+      "identifier": "assign-styles-automatically.styledocument",
+      "script": "AssignStylesAutomatically.js",
+      "handlers": {
+        "run": "onScanDocument",
+        "actions": {
+          "Shutdown": "onShutdown"
+        }
+      }
+    }
+  ],
+  "menu": {
+    "title": "🏵 Styler",
+    "items": [
+      "assign-styles-automatically.styleselectedtext",
+      "assign-styles-automatically.styleselectedartboard",
+      "assign-styles-automatically.styleselectedpage",
+      "assign-styles-automatically.styledocument"
+    ]
+  },
+  "disableCocoaScriptPreprocessor": true,
+  "appcast": "https://raw.githubusercontent.com//master/.appcast.xml"
+}
