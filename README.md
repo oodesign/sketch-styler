@@ -45,6 +45,6 @@ Once installed, Sketch will automatically notify you when an update is available
 
 ## Manual Installation
 
-1. Download [SketchStyler.zip](https://github.com/oodesign/sketch-styler/archive/master.zip) file with the plugin.
+1. Download [SketchStyler.zip](https://github.com/oodesign/sketch-styler/releases/download/v1.2.1/sketch-styler.sketchplugin.zip) file with the plugin.
 2. Un-zip downloaded file and double-click `sketch-styler.sketchplugin` file inside it.
 
