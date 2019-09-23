@@ -61,7 +61,7 @@
       "assign-styles-automatically.styledocument"
     ]
   },
-  "version": "1.2.2",
+  "version": "1.2.3",
   "disableCocoaScriptPreprocessor": true,
   "appcast": "https://raw.githubusercontent.com/oodesign/sketch-styler/master/.appcast.xml"
 }
