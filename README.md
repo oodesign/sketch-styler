@@ -8,6 +8,8 @@ Styler is a Sketch plugin that assigns styles automatically to all of your unsty
 
 Styler scans your Sketch files for unstyled layers and looks which of the existing styles (in the file or in linked libraries) matches for them.
 
+<img src="https://github.com/oodesign/sketch-styler/blob/master/resources/images/Sketch%20Styler.png" alt="Sketch Styler UI"/>
+
 ## How does it work?
 
 Define which style attributes you want Styler to consider to find matching styles.
