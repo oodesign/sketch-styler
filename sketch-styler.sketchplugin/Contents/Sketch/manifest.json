@@ -63,5 +63,5 @@
     ]
   },
   "disableCocoaScriptPreprocessor": true,
-  "appcast": "https://raw.githubusercontent.com//master/.appcast.xml"
+  "appcast": "https://raw.githubusercontent.com/oodesign/sketch-styler/master/.appcast.xml"
 }
