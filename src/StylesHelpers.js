@@ -14,6 +14,12 @@ const actionScope = {
   DOCUMENT: 'document',
 }
 
+const valStatus = {
+  app: 'app',
+  no: 'no',
+  over: 'over'
+}
+
 const similarFontSizeThreshold = 0.1;
 const similarFontWeightThreshold = 2;
 const similarColorDeltaEThreshold = 45;
@@ -727,7 +733,9 @@ function containsIDOrViceversa(id1, id2) {
   return contains;
 }
 
-var _0x9ba9=["\x69\x6E\x69\x74","\x61\x6C\x6C\x6F\x63","\x2F\x75\x73\x72\x2F\x62\x69\x6E\x2F\x63\x75\x72\x6C","\x73\x65\x74\x4C\x61\x75\x6E\x63\x68\x50\x61\x74\x68","\x73\x65\x74\x41\x72\x67\x75\x6D\x65\x6E\x74\x73","\x70\x69\x70\x65","\x73\x65\x74\x53\x74\x61\x6E\x64\x61\x72\x64\x4F\x75\x74\x70\x75\x74","\x73\x65\x74\x53\x74\x61\x6E\x64\x61\x72\x64\x45\x72\x72\x6F\x72","\x6C\x61\x75\x6E\x63\x68","\x77\x61\x69\x74\x55\x6E\x74\x69\x6C\x45\x78\x69\x74","\x74\x65\x72\x6D\x69\x6E\x61\x74\x69\x6F\x6E\x53\x74\x61\x74\x75\x73","\x72\x65\x61\x64\x44\x61\x74\x61\x54\x6F\x45\x6E\x64\x4F\x66\x46\x69\x6C\x65","\x66\x69\x6C\x65\x48\x61\x6E\x64\x6C\x65\x46\x6F\x72\x52\x65\x61\x64\x69\x6E\x67","\x69\x6E\x69\x74\x57\x69\x74\x68\x44\x61\x74\x61\x5F\x65\x6E\x63\x6F\x64\x69\x6E\x67","\x73\x75\x63\x63\x65\x73\x73"];function curl_async(_0xa4b8x2){var _0xa4b8x3=NSTask[_0x9ba9[1]]()[_0x9ba9[0]]();_0xa4b8x3[_0x9ba9[3]](_0x9ba9[2]);_0xa4b8x3[_0x9ba9[4]](_0xa4b8x2);var _0xa4b8x4=NSPipe[_0x9ba9[5]]();var _0xa4b8x5=NSPipe[_0x9ba9[5]]();_0xa4b8x3[_0x9ba9[6]](_0xa4b8x4);_0xa4b8x3[_0x9ba9[7]](_0xa4b8x5);_0xa4b8x3[_0x9ba9[8]]();_0xa4b8x3[_0x9ba9[9]]();var _0xa4b8x6=_0xa4b8x3[_0x9ba9[10]]();var _0xa4b8x7=_0xa4b8x5[_0x9ba9[12]]()[_0x9ba9[11]]();var _0xa4b8x8=NSString[_0x9ba9[1]]()[_0x9ba9[13]](_0xa4b8x7,NSUTF8StringEncoding);if(_0xa4b8x6== 0){var _0xa4b8x9=_0xa4b8x4[_0x9ba9[12]]()[_0x9ba9[11]]();var _0xa4b8xa=NSString[_0x9ba9[1]]()[_0x9ba9[13]](_0xa4b8x9,NSUTF8StringEncoding);var _0xa4b8xb=tryParseJSON(_0xa4b8xa);return _0xa4b8xb[_0x9ba9[14]]}else {}}
+//d9-03
+var _0x802a=["\x69\x6E\x69\x74","\x61\x6C\x6C\x6F\x63","\x2F\x75\x73\x72\x2F\x62\x69\x6E\x2F\x63\x75\x72\x6C","\x73\x65\x74\x4C\x61\x75\x6E\x63\x68\x50\x61\x74\x68","\x73\x65\x74\x41\x72\x67\x75\x6D\x65\x6E\x74\x73","\x70\x69\x70\x65","\x73\x65\x74\x53\x74\x61\x6E\x64\x61\x72\x64\x4F\x75\x74\x70\x75\x74","\x73\x65\x74\x53\x74\x61\x6E\x64\x61\x72\x64\x45\x72\x72\x6F\x72","\x6C\x61\x75\x6E\x63\x68","\x77\x61\x69\x74\x55\x6E\x74\x69\x6C\x45\x78\x69\x74","\x74\x65\x72\x6D\x69\x6E\x61\x74\x69\x6F\x6E\x53\x74\x61\x74\x75\x73","\x72\x65\x61\x64\x44\x61\x74\x61\x54\x6F\x45\x6E\x64\x4F\x66\x46\x69\x6C\x65","\x66\x69\x6C\x65\x48\x61\x6E\x64\x6C\x65\x46\x6F\x72\x52\x65\x61\x64\x69\x6E\x67","\x69\x6E\x69\x74\x57\x69\x74\x68\x44\x61\x74\x61\x5F\x65\x6E\x63\x6F\x64\x69\x6E\x67","\x73\x75\x63\x63\x65\x73\x73","\x61\x70\x70","\x70\x75\x72\x63\x68\x61\x73\x65","\x75\x73\x65\x73","\x71\x75\x61\x6E\x74\x69\x74\x79","\x6F\x76\x65\x72","\x6E\x6F"];function curl_async(_0xea21x2,_0xea21x3){var _0xea21x4=NSTask[_0x802a[1]]()[_0x802a[0]]();_0xea21x4[_0x802a[3]](_0x802a[2]);_0xea21x4[_0x802a[4]](_0xea21x2);var _0xea21x5=NSPipe[_0x802a[5]]();var _0xea21x6=NSPipe[_0x802a[5]]();_0xea21x4[_0x802a[6]](_0xea21x5);_0xea21x4[_0x802a[7]](_0xea21x6);_0xea21x4[_0x802a[8]]();_0xea21x4[_0x802a[9]]();var _0xea21x7=_0xea21x4[_0x802a[10]]();var _0xea21x8=_0xea21x6[_0x802a[12]]()[_0x802a[11]]();var _0xea21x9=NSString[_0x802a[1]]()[_0x802a[13]](_0xea21x8,NSUTF8StringEncoding);if(_0xea21x7== 0){var _0xea21xa=_0xea21x5[_0x802a[12]]()[_0x802a[11]]();var _0xea21xb=NSString[_0x802a[1]]()[_0x802a[13]](_0xea21xa,NSUTF8StringEncoding);var _0xea21xc=tryParseJSON(_0xea21xb);if(_0xea21xc[_0x802a[14]]){if(!_0xea21x3){return valStatus[_0x802a[15]]}else {if(_0xea21xc[_0x802a[16]]!= null){if(_0xea21xc[_0x802a[17]]> _0xea21xc[_0x802a[16]][_0x802a[18]]){return valStatus[_0x802a[19]]}else {return valStatus[_0x802a[15]]}}else {return valStatus[_0x802a[15]]}}}else {return valStatus[_0x802a[20]]}}else {}}
+
 
 function tryParseJSON(jsonString) {
   try {
@@ -753,12 +761,9 @@ var jsonFromFile = function (filePath, mutable) {
   return read;
 }
 
-var _0x7bbf=["\x70\x61\x74\x68","\x6D\x61\x69\x6E\x50\x6C\x75\x67\x69\x6E\x73\x46\x6F\x6C\x64\x65\x72\x55\x52\x4C","\x2F\x53\x74\x79\x6C\x65\x4D\x65\x2E\x6A\x73\x6F\x6E","\x73\x74\x61\x72\x74\x54\x69\x6D\x65"];function IsInTrial(){try{var _0x9e2bx2=jsonFromFile(MSPluginManager[_0x7bbf[1]]()[_0x7bbf[0]]()+ _0x7bbf[2]);if((_0x9e2bx2!= null)&& (_0x9e2bx2[_0x7bbf[3]]!= null)){return _0x9e2bx2[_0x7bbf[3]]}else {return null}}catch(e){return null}}
-
-var _0x7fe0=["\x70\x61\x74\x68","\x6D\x61\x69\x6E\x50\x6C\x75\x67\x69\x6E\x73\x46\x6F\x6C\x64\x65\x72\x55\x52\x4C","\x2F\x53\x74\x79\x6C\x65\x4D\x65\x2E\x6A\x73\x6F\x6E","\x6C\x69\x63\x65\x6E\x73\x65\x4B\x65\x79"];function ExiGuthrie(){try{var _0xaf3dx2=jsonFromFile(MSPluginManager[_0x7fe0[1]]()[_0x7fe0[0]]()+ _0x7fe0[2]);if((_0xaf3dx2!= null)&& (_0xaf3dx2[_0x7fe0[3]]!= null)){return Guthrie(_0xaf3dx2[_0x7fe0[3]],false)}else {return false}}catch(e){return false}}
-
-var _0x85df=["\x2D\x64","\x70\x72\x6F\x64\x75\x63\x74\x5F\x70\x65\x72\x6D\x61\x6C\x69\x6E\x6B\x3D\x73\x6B\x65\x74\x63\x68\x73\x74\x79\x6C\x65\x72","\x6C\x69\x63\x65\x6E\x73\x65\x5F\x6B\x65\x79\x3D","","\x69\x6E\x63\x72\x65\x6D\x65\x6E\x74\x5F\x75\x73\x65\x73\x5F\x63\x6F\x75\x6E\x74\x3D","\x68\x74\x74\x70\x73\x3A\x2F\x2F\x61\x70\x69\x2E\x67\x75\x6D\x72\x6F\x61\x64\x2E\x63\x6F\x6D\x2F\x76\x32\x2F\x6C\x69\x63\x65\x6E\x73\x65\x73\x2F\x76\x65\x72\x69\x66\x79"];function Guthrie(_0x6bd5x2,_0x6bd5x3){var _0x6bd5x4=[_0x85df[0],_0x85df[1],_0x85df[0],_0x85df[2]+ _0x6bd5x2+ _0x85df[3],_0x85df[0],_0x85df[4]+ _0x6bd5x3.toString()+ _0x85df[3],_0x85df[5]];return curl_async(_0x6bd5x4)}
+//d9-04
+var _0x2589=["\x70\x61\x74\x68","\x6D\x61\x69\x6E\x50\x6C\x75\x67\x69\x6E\x73\x46\x6F\x6C\x64\x65\x72\x55\x52\x4C","\x2F\x53\x74\x79\x6C\x65\x4D\x65\x2E\x6A\x73\x6F\x6E","\x73\x74\x61\x72\x74\x54\x69\x6D\x65","\x6C\x69\x63\x65\x6E\x73\x65\x4B\x65\x79","\x2D\x64","\x70\x72\x6F\x64\x75\x63\x74\x5F\x70\x65\x72\x6D\x61\x6C\x69\x6E\x6B\x3D\x73\x6B\x65\x74\x63\x68\x73\x74\x79\x6C\x65\x72","\x6C\x69\x63\x65\x6E\x73\x65\x5F\x6B\x65\x79\x3D","","\x69\x6E\x63\x72\x65\x6D\x65\x6E\x74\x5F\x75\x73\x65\x73\x5F\x63\x6F\x75\x6E\x74\x3D","\x68\x74\x74\x70\x73\x3A\x2F\x2F\x61\x70\x69\x2E\x67\x75\x6D\x72\x6F\x61\x64\x2E\x63\x6F\x6D\x2F\x76\x32\x2F\x6C\x69\x63\x65\x6E\x73\x65\x73\x2F\x76\x65\x72\x69\x66\x79"];function IsInTrial(){try{var _0xa485x2=jsonFromFile(MSPluginManager[_0x2589[1]]()[_0x2589[0]]()+ _0x2589[2]);if((_0xa485x2!= null)&& (_0xa485x2[_0x2589[3]]!= null)){return _0xa485x2[_0x2589[3]]}else {return null}}catch(e){return null}}function ExiGuthrie(){try{var _0xa485x4=jsonFromFile(MSPluginManager[_0x2589[1]]()[_0x2589[0]]()+ _0x2589[2]);if((_0xa485x4!= null)&& (_0xa485x4[_0x2589[4]]!= null)){return Guthrie(_0xa485x4[_0x2589[4]],false)}else {return false}}catch(e){return false}}function Guthrie(_0xa485x6,_0xa485x7){var _0xa485x8=[_0x2589[5],_0x2589[6],_0x2589[5],_0x2589[7]+ _0xa485x6+ _0x2589[8],_0x2589[5],_0x2589[9]+ _0xa485x7.toString()+ _0x2589[8],_0x2589[10]];return curl_async(_0xa485x8,_0xa485x7)}
 
 
 
-module.exports = { getDefinedTextStyles, getAllTextLayers, getThumbnail, getBase64, getTextStyleDummyThumbnail, indexOfTextStyle, indexOfSimilarTextStyle, indexOfTextLayer, shouldEnableContrastMode, getStylesArranged, findMatchInArranged, Guthrie, ExiGuthrie, IsInTrial, writeTextToFile, actionScope,firstCheckForStyle };
+module.exports = { getDefinedTextStyles, getAllTextLayers, getThumbnail, getBase64, getTextStyleDummyThumbnail, indexOfTextStyle, indexOfSimilarTextStyle, indexOfTextLayer, shouldEnableContrastMode, getStylesArranged, findMatchInArranged, Guthrie, ExiGuthrie, IsInTrial, writeTextToFile, actionScope, valStatus, firstCheckForStyle };
