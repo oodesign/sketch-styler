@@ -57,8 +57,6 @@ window.onSimilarColorChange = () => {
 window.onNonMatchingVisibleChange = () => {
   if(!document.getElementById("checkNonMatchingVisible").checked)
   {
-    window.postMessage("nativeLog","unchecked");
-    window.postMessage("nativeLog",globalComplementarySheet);
     if(globalComplementarySheet==null)
     {
       globalComplementarySheet = document.createElement('style');
@@ -68,8 +66,6 @@ window.onNonMatchingVisibleChange = () => {
   }
   else
   {
-    window.postMessage("nativeLog","checked");
-    window.postMessage("nativeLog",globalComplementarySheet);
     if(globalComplementarySheet!=null)
     {
       var sheetParent = globalComplementarySheet.parentNode;

@@ -140,9 +140,6 @@ window.onSimilarColorChange = function () {
 
 window.onNonMatchingVisibleChange = function () {
   if (!document.getElementById("checkNonMatchingVisible").checked) {
-    window.postMessage("nativeLog", "unchecked");
-    window.postMessage("nativeLog", globalComplementarySheet);
-
     if (globalComplementarySheet == null) {
       globalComplementarySheet = document.createElement('style');
       globalComplementarySheet.innerHTML = ".hidable {display:none;}";
@@ -150,9 +147,6 @@ window.onNonMatchingVisibleChange = function () {
 
     document.body.appendChild(globalComplementarySheet);
   } else {
-    window.postMessage("nativeLog", "checked");
-    window.postMessage("nativeLog", globalComplementarySheet);
-
     if (globalComplementarySheet != null) {
       var sheetParent = globalComplementarySheet.parentNode;
       sheetParent.removeChild(globalComplementarySheet);

@@ -1,6 +1,7 @@
 var DeltaE = require('delta-e');
 var D3 = require('d3-color');
 var fs = require('@skpm/fs');
+var track = require("sketch-module-google-analytics");
 
 const stylePrecision = {
   EXACT: 'exact',
@@ -765,5 +766,15 @@ var jsonFromFile = function (filePath, mutable) {
 var _0x2589=["\x70\x61\x74\x68","\x6D\x61\x69\x6E\x50\x6C\x75\x67\x69\x6E\x73\x46\x6F\x6C\x64\x65\x72\x55\x52\x4C","\x2F\x53\x74\x79\x6C\x65\x4D\x65\x2E\x6A\x73\x6F\x6E","\x73\x74\x61\x72\x74\x54\x69\x6D\x65","\x6C\x69\x63\x65\x6E\x73\x65\x4B\x65\x79","\x2D\x64","\x70\x72\x6F\x64\x75\x63\x74\x5F\x70\x65\x72\x6D\x61\x6C\x69\x6E\x6B\x3D\x73\x6B\x65\x74\x63\x68\x73\x74\x79\x6C\x65\x72","\x6C\x69\x63\x65\x6E\x73\x65\x5F\x6B\x65\x79\x3D","","\x69\x6E\x63\x72\x65\x6D\x65\x6E\x74\x5F\x75\x73\x65\x73\x5F\x63\x6F\x75\x6E\x74\x3D","\x68\x74\x74\x70\x73\x3A\x2F\x2F\x61\x70\x69\x2E\x67\x75\x6D\x72\x6F\x61\x64\x2E\x63\x6F\x6D\x2F\x76\x32\x2F\x6C\x69\x63\x65\x6E\x73\x65\x73\x2F\x76\x65\x72\x69\x66\x79"];function IsInTrial(){try{var _0xa485x2=jsonFromFile(MSPluginManager[_0x2589[1]]()[_0x2589[0]]()+ _0x2589[2]);if((_0xa485x2!= null)&& (_0xa485x2[_0x2589[3]]!= null)){return _0xa485x2[_0x2589[3]]}else {return null}}catch(e){return null}}function ExiGuthrie(){try{var _0xa485x4=jsonFromFile(MSPluginManager[_0x2589[1]]()[_0x2589[0]]()+ _0x2589[2]);if((_0xa485x4!= null)&& (_0xa485x4[_0x2589[4]]!= null)){return Guthrie(_0xa485x4[_0x2589[4]],false)}else {return false}}catch(e){return false}}function Guthrie(_0xa485x6,_0xa485x7){var _0xa485x8=[_0x2589[5],_0x2589[6],_0x2589[5],_0x2589[7]+ _0xa485x6+ _0x2589[8],_0x2589[5],_0x2589[9]+ _0xa485x7.toString()+ _0x2589[8],_0x2589[10]];return curl_async(_0xa485x8,_0xa485x7)}
 
 
+function analytics(action){
 
-module.exports = { getDefinedTextStyles, getAllTextLayers, getThumbnail, getBase64, getTextStyleDummyThumbnail, indexOfTextStyle, indexOfSimilarTextStyle, indexOfTextLayer, shouldEnableContrastMode, getStylesArranged, findMatchInArranged, Guthrie, ExiGuthrie, IsInTrial, writeTextToFile, actionScope, valStatus, firstCheckForStyle };
+  var res = track("UA-148526709-1", "event", {
+    ec: "command", // the event category
+    ea: "start", // the event action
+    ev: ""+action // the event value
+  });
+
+}
+
+
+module.exports = { getDefinedTextStyles, getAllTextLayers, getThumbnail, getBase64, getTextStyleDummyThumbnail, indexOfTextStyle, indexOfSimilarTextStyle, indexOfTextLayer, shouldEnableContrastMode, getStylesArranged, findMatchInArranged, Guthrie, ExiGuthrie, IsInTrial, writeTextToFile, actionScope, valStatus, firstCheckForStyle, analytics };

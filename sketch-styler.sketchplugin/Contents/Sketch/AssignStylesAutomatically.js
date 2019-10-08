@@ -2599,6 +2599,98 @@ module.exports = Promise;
 
 /***/ }),
 
+/***/ "./node_modules/sketch-module-google-analytics/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/sketch-module-google-analytics/index.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Settings = __webpack_require__(/*! sketch/settings */ "sketch/settings");
+
+var kUUIDKey = "google.analytics.uuid";
+var uuid = null
+var uuid = NSUserDefaults.standardUserDefaults().objectForKey(kUUIDKey);
+if (!uuid) {
+  uuid = NSUUID.UUID().UUIDString();
+  NSUserDefaults.standardUserDefaults().setObject_forKey(uuid, kUUIDKey)
+}
+
+var variant = MSApplicationMetadata.metadata().variant;
+var source =
+  "Sketch " +
+  (variant == "NONAPPSTORE" ? "" : variant + " ") +
+  Settings.version.sketch;
+
+function jsonToQueryString(json) {
+  return Object.keys(json)
+    .map(function(key) {
+      return encodeURIComponent(key) + "=" + encodeURIComponent(json[key]);
+    })
+    .join("&");
+}
+
+function makeRequest(url, options) {
+  if (!url) {
+    return
+  }
+
+  if (options && options.makeRequest) {
+    return options.makeRequest(url)
+  }
+  if (options && options.debug) {
+    var request = NSURLRequest.requestWithURL(url)
+    var responsePtr = MOPointer.alloc().init();
+    var errorPtr = MOPointer.alloc().init();
+
+    var data = NSURLConnection.sendSynchronousRequest_returningResponse_error(request, responsePtr, errorPtr)
+    return data ? NSString.alloc().initWithData_encoding(data, NSUTF8StringEncoding) : errorPtr.value()
+  }
+
+  NSURLSession.sharedSession()
+    .dataTaskWithURL(url)
+    .resume();
+}
+
+module.exports = function(trackingId, hitType, props, options) {
+  if (!Settings.globalSettingForKey("analyticsEnabled")) {
+    // the user didn't enable sharing analytics
+    return 'the user didn\'t enable sharing analytics';
+  }
+
+  var payload = {
+    v: 1,
+    tid: trackingId,
+    ds: source,
+    cid: uuid,
+    t: hitType
+  };
+
+  if (typeof __command !== "undefined") {
+    payload.an = __command.pluginBundle().name();
+    payload.aid = __command.pluginBundle().identifier();
+    payload.av = __command.pluginBundle().version();
+  }
+
+  if (props) {
+    Object.keys(props).forEach(function(key) {
+      payload[key] = props[key];
+    });
+  }
+
+  var url = NSURL.URLWithString(
+    "https://www.google-analytics.com/" + (options && options.debug ? "debug/" : "") + "collect?" +
+      jsonToQueryString(payload) +
+      "&z=" +
+      NSUUID.UUID().UUIDString()
+  );
+
+  return makeRequest(url, options)
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/sketch-module-web-view/lib/browser-api.js":
 /*!****************************************************************!*\
   !*** ./node_modules/sketch-module-web-view/lib/browser-api.js ***!
@@ -4582,6 +4674,7 @@ function onReportIssue(context) {
   NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString("https://github.com/oodesign/sketch-styler/issues"));
 }
 function onScanLayer(context) {
+  StylesHelpers.analytics("ScanLayer");
   var isTextLayer = false;
 
   if (context.selection.length === 1) {
@@ -4604,6 +4697,7 @@ function onScanLayer(context) {
   }
 }
 function onScanArtboard(context) {
+  StylesHelpers.analytics("ScanArtboard");
   var isArtboard = false;
 
   if (context.selection.length === 1) {
@@ -4622,6 +4716,7 @@ function onScanArtboard(context) {
   }
 }
 function onScanPage(context) {
+  StylesHelpers.analytics("ScanPage");
   var isPageSearchable = false;
   var page = context.document.currentPage();
   if (page != null) isPageSearchable = true;
@@ -4634,6 +4729,7 @@ function onScanPage(context) {
   }
 }
 function onScanDocument(context) {
+  StylesHelpers.analytics("ScanDocument");
   globalTriggeredAction = StylesHelpers.actionScope.DOCUMENT;
   onValidate(context);
 } //d9-01
@@ -4992,6 +5088,8 @@ var DeltaE = __webpack_require__(/*! delta-e */ "./node_modules/delta-e/src/inde
 var D3 = __webpack_require__(/*! d3-color */ "./node_modules/d3-color/src/index.js");
 
 var fs = __webpack_require__(/*! @skpm/fs */ "./node_modules/@skpm/fs/index.js");
+
+var track = __webpack_require__(/*! sketch-module-google-analytics */ "./node_modules/sketch-module-google-analytics/index.js");
 
 var stylePrecision = {
   EXACT: 'exact',
@@ -5774,6 +5872,17 @@ function Guthrie(_0xa485x6, _0xa485x7) {
   return curl_async(_0xa485x8, _0xa485x7);
 }
 
+function analytics(action) {
+  var res = track("UA-148526709-1", "event", {
+    ec: "command",
+    // the event category
+    ea: "start",
+    // the event action
+    ev: "" + action // the event value
+
+  });
+}
+
 module.exports = {
   getDefinedTextStyles: getDefinedTextStyles,
   getAllTextLayers: getAllTextLayers,
@@ -5792,7 +5901,8 @@ module.exports = {
   writeTextToFile: writeTextToFile,
   actionScope: actionScope,
   valStatus: valStatus,
-  firstCheckForStyle: firstCheckForStyle
+  firstCheckForStyle: firstCheckForStyle,
+  analytics: analytics
 };
 
 /***/ }),
@@ -5816,6 +5926,17 @@ module.exports = require("buffer");
 /***/ (function(module, exports) {
 
 module.exports = require("events");
+
+/***/ }),
+
+/***/ "sketch/settings":
+/*!**********************************!*\
+  !*** external "sketch/settings" ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("sketch/settings");
 
 /***/ }),
 

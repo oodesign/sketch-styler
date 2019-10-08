@@ -1,9 +1,9 @@
-import BrowserWindow from 'sketch-module-web-view'
-import { getWebview } from 'sketch-module-web-view/remote'
-import UI from 'sketch/ui'
-const StylesHelpers = require("./StylesHelpers")
-const webviewIdentifier = 'assign-styles-automatically.webview'
-const webviewRegIdentifier = 'assign-styles-automatically.webviewReg'
+import BrowserWindow from 'sketch-module-web-view';
+import { getWebview } from 'sketch-module-web-view/remote';
+import UI from 'sketch/ui';
+const StylesHelpers = require("./StylesHelpers");
+const webviewIdentifier = 'assign-styles-automatically.webview';
+const webviewRegIdentifier = 'assign-styles-automatically.webviewReg';
 
 var globalTextLayers;
 var globalByArtb;
@@ -23,6 +23,7 @@ export function onReportIssue(context) {
 }
 
 export function onScanLayer(context) {
+  StylesHelpers.analytics("ScanLayer");
   var isTextLayer = false;
   if (context.selection.length === 1) {
     var textLayer = context.selection.firstObject();
@@ -43,9 +44,12 @@ export function onScanLayer(context) {
   else {
     UI.message("Selected element is not a text layer.")
   }
+
+  
 }
 
 export function onScanArtboard(context) {
+  StylesHelpers.analytics("ScanArtboard");
   var isArtboard = false;
   if (context.selection.length === 1) {
     var artboard = context.selection.firstObject();
@@ -64,6 +68,7 @@ export function onScanArtboard(context) {
 }
 
 export function onScanPage(context) {
+  StylesHelpers.analytics("ScanPage");
   var isPageSearchable = false;
   var page = context.document.currentPage();
   if (page != null) isPageSearchable = true;
@@ -78,6 +83,7 @@ export function onScanPage(context) {
 }
 
 export function onScanDocument(context) {
+  StylesHelpers.analytics("ScanDocument");
   globalTriggeredAction = StylesHelpers.actionScope.DOCUMENT;
   onValidate(context);
 }
