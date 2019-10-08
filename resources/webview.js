@@ -1,11 +1,13 @@
 // disable the context menu (eg. the right click menu) to have a more native feel
-document.addEventListener('contextmenu', (e) => {
-  e.preventDefault()
-})
+// document.addEventListener('contextmenu', (e) => {
+//   e.preventDefault()
+// })
 
 var globalUnstyledLayers;
+var globalTotalLayers;
 var globalAssignLayers = 0;
 var globalActiveLibraries;
+var globalComplementarySheet;
 
 // call the plugin from the webview
 document.getElementById('btnFindMatchingStyles').addEventListener('click', () => {
@@ -52,6 +54,31 @@ window.onSameColorChange = () => {
 window.onSimilarColorChange = () => {
   if(document.getElementById("checkSimilarColor").checked) document.getElementById("checkSameColor").checked = false;
 };
+window.onNonMatchingVisibleChange = () => {
+  if(!document.getElementById("checkNonMatchingVisible").checked)
+  {
+    window.postMessage("nativeLog","unchecked");
+    window.postMessage("nativeLog",globalComplementarySheet);
+    if(globalComplementarySheet==null)
+    {
+      globalComplementarySheet = document.createElement('style');
+      globalComplementarySheet.innerHTML = ".hidable {display:none;}";
+    }
+    document.body.appendChild(globalComplementarySheet);
+  }
+  else
+  {
+    window.postMessage("nativeLog","checked");
+    window.postMessage("nativeLog",globalComplementarySheet);
+    if(globalComplementarySheet!=null)
+    {
+      var sheetParent = globalComplementarySheet.parentNode;
+      sheetParent.removeChild(globalComplementarySheet);
+    }
+  }
+};
+
+
 
 document.getElementById('btnAssign').addEventListener("click", () => {
   assignStyles();
@@ -100,6 +127,7 @@ window.DrawActiveLibraries = (activeLibraries) => {
 
 window.DrawElements = (byArtb, totalLayers) => {
   globalUnstyledLayers = byArtb;
+  globalTotalLayers = totalLayers;
   globalAssignLayers = 0;
   var inner = "";
   var artboardID = 0;
@@ -154,6 +182,7 @@ window.DrawElements = (byArtb, totalLayers) => {
       if(unstyledTextLayers[i].isSmall)
         isSmall = "isSmallThumbnail";
 
+      var hidable = "";
 
       if (unstyledTextLayers[i].matchingStyles.matchingStyles.length > 0) {
         var contrastModeOnStyle = "";
@@ -163,7 +192,7 @@ window.DrawElements = (byArtb, totalLayers) => {
         matchingStyles = `<div class='thumbnailContainer stylePreview' ><div class="thumbnail ${contrastModeOnStyle} ${isSmall}" id='similarThumb${layerID}' style='background-image:url("${unstyledTextLayers[i].matchingStyles.matchingStyles[0].thumbnail}")'></div>${navigationButtons}</div>`;
         styleNameDiv = `<div class='rowAuto'>
                           <div class='horizontalLayout'>
-                            <div class='colAuto primaryBoldText itemText' id='styleName${layerID}'>${unstyledTextLayers[i].matchingStyles.matchingStyles[0].styleName}</div>
+                            <div class='colAuto primaryBoldText itemText' id='styleName${layerID}'><span>${unstyledTextLayers[i].matchingStyles.matchingStyles[0].styleName}</span></div>
                             <div class='colAuto infoIcon tooltip'>
                               <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                   <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -185,13 +214,14 @@ window.DrawElements = (byArtb, totalLayers) => {
         checkbox = `<div class="selectRoundCheckbox"><input type="checkbox" onchange='onCheckChange(${JSON.stringify(artboard)},${i})' id='checkbox${layerID}'" checked/><label for="checkbox${layerID}"></label></div>`;
       }
       else {
+        hidable="hidable";
         matchingStyles = `<div class='thumbnailContainer textPreview alignVerticalCenter'><div class="alignHorizontalCenter secondaryText"> No matching styles</div> </div>`;
         styleNameDiv = `<div class='rowAuto primaryBoldText itemText' id='styleName${layerID}'>&nbsp;</div>`;
         checkbox = `<div class="selectRoundCheckbox notVisible"><input type="checkbox" onchange='onCheckChange(${JSON.stringify(artboard)},${i})' id='checkbox${layerID}'" checked/><label for="checkbox${layerID}"></label></div>`;
         globalAssignLayers--;
       }
 
-      inner += `<div class='verticalLayout listItem'>\
+      inner += `<div class='verticalLayout listItem ${hidable}'>\
               <div class='rowAuto listItemHead'></div>\
                   <div class="rowAuto listItemBg">\
                     <div class='horizontalLayout'>\
@@ -210,7 +240,7 @@ window.DrawElements = (byArtb, totalLayers) => {
                         <div class='verticalLayout'>\
                           <div class='rowAuto'>
                             <div class='horizontalLayout'>
-                              <div class='colAuto primaryText itemText'>${unstyledTextLayers[i].name}</div>\
+                              <div class='colAuto primaryText itemText'><span>${unstyledTextLayers[i].name}<span></div>\
                               <div class='colAuto infoIcon tooltip'>
                                 <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -312,7 +342,7 @@ window.loadNextStyle = (artboard,index,layerID) => {
   else
    globalUnstyledLayers[artboard][index].styleLoaded = 0;
   
-  document.getElementById("styleName"+layerID).innerHTML = `${globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].styleName}`;
+  document.getElementById("styleName"+layerID).innerHTML = `<span>${globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].styleName}</span>`;
   document.getElementById("styleTooltip"+layerID).innerHTML = `
                                   ${globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].fontName} - ${globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].fontSize}
                                   <br/>
@@ -344,7 +374,7 @@ window.loadPreviousStyle = (artboard,index,layerID) => {
   else
     globalUnstyledLayers[artboard][index].styleLoaded = globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles.length-1;
 
-  document.getElementById("styleName"+layerID).innerHTML = `${globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].styleName}`;
+  document.getElementById("styleName"+layerID).innerHTML = `<span>${globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].styleName}</span>`;
   document.getElementById("styleTooltip"+layerID).innerHTML = `
                                   ${globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].fontName} - ${globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].fontSize}
                                   <br/>

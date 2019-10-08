@@ -159,6 +159,7 @@ $headerContentDistance:16px;
 
 .scrollable{
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 @mixin wrapPanel{

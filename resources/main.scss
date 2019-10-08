@@ -559,6 +559,14 @@ html,body{
 
   .itemText{
     margin-bottom: 4px;
+    max-width: 400px;
+    span{
+      width:100%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
+      overflow: hidden;
+    }
   }
 
   transition: all 0.8s ease-out;
@@ -648,6 +656,17 @@ html,body{
 .separatorBelow{
   margin: 10px 0 10px 0; 
   border-bottom: 1px solid blue;
+}
+
+.resultsFilters{
+  .roundCheckbox{
+    .padder{
+      width:260px;
+      span{
+        width:100%;
+      }
+    }
+  }
 }
 
 @mixin roundCheckbox($bgColor,$marginBottom){
