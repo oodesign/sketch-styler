@@ -11,7 +11,7 @@
       "name": "Selected Text",
       "identifier": "assign-styles-automatically.styleselectedtext",
       "shortcut": "ctrl shift option t",
-      "script": "AssignStylesAutomatically.js",
+      "script": "__AssignStylesAutomatically.js",
       "handlers": {
         "run": "onScanLayer",
         "actions": {
@@ -23,7 +23,7 @@
       "name": "Selected Artboard",
       "identifier": "assign-styles-automatically.styleselectedartboard",
       "shortcut": "ctrl shift option a",
-      "script": "AssignStylesAutomatically.js",
+      "script": "__AssignStylesAutomatically.js",
       "handlers": {
         "run": "onScanArtboard",
         "actions": {
@@ -35,7 +35,7 @@
       "name": "Selected Page",
       "identifier": "assign-styles-automatically.styleselectedpage",
       "shortcut": "ctrl shift option s",
-      "script": "AssignStylesAutomatically.js",
+      "script": "__AssignStylesAutomatically.js",
       "handlers": {
         "run": "onScanPage",
         "actions": {
@@ -47,7 +47,7 @@
       "name": "Full Document",
       "identifier": "assign-styles-automatically.styledocument",
       "shortcut": "ctrl shift option d",
-      "script": "AssignStylesAutomatically.js",
+      "script": "__AssignStylesAutomatically.js",
       "handlers": {
         "run": "onScanDocument",
         "actions": {
@@ -58,7 +58,7 @@
     {
       "name": "How Styler works",
       "identifier": "assign-styles-automatically.howstylerworks",
-      "script": "AssignStylesAutomatically.js",
+      "script": "__AssignStylesAutomatically.js",
       "handlers": {
         "run": "onHowStylerWorks"
       }
@@ -66,7 +66,7 @@
     {
       "name": "Report an issue or an idea",
       "identifier": "assign-styles-automatically.report_issue",
-      "script": "AssignStylesAutomatically.js",
+      "script": "__AssignStylesAutomatically.js",
       "handlers": {
         "run": "onReportIssue"
       }
