@@ -507,13 +507,13 @@ html, body {
 
 @media (prefers-color-scheme: light) {
   .logo {
-    background-image: url("./images/LogoLight.png");
+    background-image: url(d6ef1b4038db17b9d78a101b3eab8918.png";);
   }
 }
 
 @media (prefers-color-scheme: dark) {
   .logo {
-    background-image: url("./images/LogoDark.png");
+    background-image: url(b56871af07932191ea66d3ced2c57ddc.png";);
   }
 }
 
@@ -1185,7 +1185,6 @@ html, body {
 .roundCheckbox {
   position: relative;
   margin-bottom: 7px;
-  min-height: 18px;
 }
 
 .roundCheckbox .padder {
@@ -1208,30 +1207,11 @@ html, body {
   }
 }
 
+.roundCheckbox .padder.offset {
+  padding-left: 16px;
+}
+
 .roundCheckbox label {
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-@media (prefers-color-scheme: light) {
-  .roundCheckbox label {
-    color: #212124;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .roundCheckbox label {
-    color: #ffffff;
-  }
-}
-
-.roundCheckbox label.offset {
-  padding-left: 15px;
-  top: 1px;
-}
-
-.roundCheckbox .labelCheck {
   border-radius: 50%;
   cursor: pointer;
   height: 20px;
@@ -1246,50 +1226,49 @@ html, body {
 }
 
 @media (prefers-color-scheme: light) {
-  .roundCheckbox .labelCheck {
+  .roundCheckbox label {
     border-color: #A9A9A9;
   }
 }
 
 @media (prefers-color-scheme: dark) {
-  .roundCheckbox .labelCheck {
+  .roundCheckbox label {
     border-color: #6A6A6A;
   }
 }
 
 @media (prefers-color-scheme: light) {
-  .roundCheckbox .labelCheck:hover {
+  .roundCheckbox label:hover {
     border-color: #B6A8E4;
   }
 }
 
 @media (prefers-color-scheme: dark) {
-  .roundCheckbox .labelCheck:hover {
+  .roundCheckbox label:hover {
     border-color: #ffffff;
   }
 }
 
-.roundCheckbox .labelCheck span {
+.roundCheckbox label span {
   left: 25px;
   width: 120px;
-  position: absolute;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 13px;
 }
 
 @media (prefers-color-scheme: light) {
-  .roundCheckbox .labelCheck span {
+  .roundCheckbox label span {
     color: #212124;
   }
 }
 
 @media (prefers-color-scheme: dark) {
-  .roundCheckbox .labelCheck span {
+  .roundCheckbox label span {
     color: #ffffff;
   }
 }
 
-.roundCheckbox .labelCheck:after {
+.roundCheckbox label:after {
   border: 2px solid white;
   border-top: none;
   border-right: none;
@@ -1320,7 +1299,6 @@ html, body {
 .selectRoundCheckbox {
   position: relative;
   margin-bottom: 0;
-  min-height: 18px;
   width: 30px;
   margin-left: 10px;
 }
@@ -1345,30 +1323,11 @@ html, body {
   }
 }
 
+.selectRoundCheckbox .padder.offset {
+  padding-left: 16px;
+}
+
 .selectRoundCheckbox label {
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-@media (prefers-color-scheme: light) {
-  .selectRoundCheckbox label {
-    color: #212124;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .selectRoundCheckbox label {
-    color: #ffffff;
-  }
-}
-
-.selectRoundCheckbox label.offset {
-  padding-left: 15px;
-  top: 1px;
-}
-
-.selectRoundCheckbox .labelCheck {
   border-radius: 50%;
   cursor: pointer;
   height: 20px;
@@ -1383,50 +1342,49 @@ html, body {
 }
 
 @media (prefers-color-scheme: light) {
-  .selectRoundCheckbox .labelCheck {
+  .selectRoundCheckbox label {
     border-color: #A9A9A9;
   }
 }
 
 @media (prefers-color-scheme: dark) {
-  .selectRoundCheckbox .labelCheck {
+  .selectRoundCheckbox label {
     border-color: #6A6A6A;
   }
 }
 
 @media (prefers-color-scheme: light) {
-  .selectRoundCheckbox .labelCheck:hover {
+  .selectRoundCheckbox label:hover {
     border-color: #B6A8E4;
   }
 }
 
 @media (prefers-color-scheme: dark) {
-  .selectRoundCheckbox .labelCheck:hover {
+  .selectRoundCheckbox label:hover {
     border-color: #ffffff;
   }
 }
 
-.selectRoundCheckbox .labelCheck span {
+.selectRoundCheckbox label span {
   left: 25px;
   width: 120px;
-  position: absolute;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 13px;
 }
 
 @media (prefers-color-scheme: light) {
-  .selectRoundCheckbox .labelCheck span {
+  .selectRoundCheckbox label span {
     color: #212124;
   }
 }
 
 @media (prefers-color-scheme: dark) {
-  .selectRoundCheckbox .labelCheck span {
+  .selectRoundCheckbox label span {
     color: #ffffff;
   }
 }
 
-.selectRoundCheckbox .labelCheck:after {
+.selectRoundCheckbox label:after {
   border: 2px solid white;
   border-top: none;
   border-right: none;
@@ -3023,4 +2981,3 @@ a {
   -webkit-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
-/*# sourceMappingURL=main.css.map */

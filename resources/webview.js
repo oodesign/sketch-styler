@@ -108,13 +108,19 @@ window.HideProgress = (targetProgress) => {
 };
 
 window.DrawActiveLibraries = (activeLibraries) => {
+  window.postMessage('nativeLog',"5");
   globalActiveLibraries = activeLibraries;
   var inner="";
+
   for(var i=0;i<activeLibraries.length;i++)
   {
-    inner +=`<div class="roundCheckbox">
-              <input type="checkbox" id="externalLibraryCheck${i}"  onchange='onLibraryCheckChange(${i})'/>
-              <label for="externalLibraryCheck${i}"><div class="padder"><span>${activeLibraries[i].name}</span></div></label>
+    inner +=`<div class="roundCheckbox horizontalLayout">
+              <input class="colAuto" type="checkbox" id="externalLibraryCheck${i}"  onchange='onLibraryCheckChange(${i})'/>
+              <label class="colAuto labelCheck" for="externalLibraryCheck${i}">
+              </label>
+              <label class="colAvailable offset" for="externalLibraryCheck${i}">
+                <span class="padder">${activeLibraries[i].name}</span>
+              </label>
             </div>`;
   }
 

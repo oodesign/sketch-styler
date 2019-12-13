@@ -507,13 +507,13 @@ html, body {
 
 @media (prefers-color-scheme: light) {
   .logo {
-    background-image: url("./images/LogoLight.png");
+    background-image: url(d6ef1b4038db17b9d78a101b3eab8918.png";);
   }
 }
 
 @media (prefers-color-scheme: dark) {
   .logo {
-    background-image: url("./images/LogoDark.png");
+    background-image: url(b56871af07932191ea66d3ced2c57ddc.png";);
   }
 }
 
@@ -1185,7 +1185,6 @@ html, body {
 .roundCheckbox {
   position: relative;
   margin-bottom: 7px;
-  min-height: 18px;
 }
 
 .roundCheckbox .padder {
@@ -1208,10 +1207,14 @@ html, body {
   }
 }
 
+.roundCheckbox .padder.offset {
+  padding-left: 15px;
+  top: 1px;
+}
+
 .roundCheckbox label {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 13px;
-  cursor: pointer;
 }
 
 @media (prefers-color-scheme: light) {
@@ -1224,11 +1227,6 @@ html, body {
   .roundCheckbox label {
     color: #ffffff;
   }
-}
-
-.roundCheckbox label.offset {
-  padding-left: 15px;
-  top: 1px;
 }
 
 .roundCheckbox .labelCheck {
@@ -1320,7 +1318,6 @@ html, body {
 .selectRoundCheckbox {
   position: relative;
   margin-bottom: 0;
-  min-height: 18px;
   width: 30px;
   margin-left: 10px;
 }
@@ -1345,10 +1342,14 @@ html, body {
   }
 }
 
+.selectRoundCheckbox .padder.offset {
+  padding-left: 15px;
+  top: 1px;
+}
+
 .selectRoundCheckbox label {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 13px;
-  cursor: pointer;
 }
 
 @media (prefers-color-scheme: light) {
@@ -1361,11 +1362,6 @@ html, body {
   .selectRoundCheckbox label {
     color: #ffffff;
   }
-}
-
-.selectRoundCheckbox label.offset {
-  padding-left: 15px;
-  top: 1px;
 }
 
 .selectRoundCheckbox .labelCheck {
@@ -3023,4 +3019,3 @@ a {
   -webkit-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
-/*# sourceMappingURL=main.css.map */

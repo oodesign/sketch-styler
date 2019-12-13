@@ -140,7 +140,10 @@ export function scanTextLayers(context) {
 
   // only show the window when the page has loaded to avoid a white flash
   browserWindow.once('ready-to-show', () => {
+    console.log("0");
     browserWindow.show()
+
+    console.log("1");
   })
 
   const webContents = browserWindow.webContents
@@ -148,6 +151,8 @@ export function scanTextLayers(context) {
   // print a message when the page loads
   webContents.on('did-finish-load', () => {
     //UI.message('UI loaded!')
+
+    console.log("2");
     var libraries = NSApp.delegate().librariesController().libraries();
     var activeLibraries = []
     libraries.forEach(function (lib) {
@@ -162,7 +167,9 @@ export function scanTextLayers(context) {
     if (globalIsInTrial)
       webContents.executeJavaScript(`SetWindowTitle(${JSON.stringify(globalRemainingDays)})`).catch(console.error);
 
+      console.log("3");
     webContents.executeJavaScript(`DrawActiveLibraries(${JSON.stringify(activeLibraries)})`).catch(console.error);
+    console.log("4");
 
   })
 
