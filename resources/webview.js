@@ -194,23 +194,24 @@ window.DrawElements = (byArtb, totalLayers) => {
         matchingStyles = `<div class='thumbnailContainer stylePreview' ><div class="thumbnail ${contrastModeOnStyle} ${isSmall}" id='similarThumb${layerID}' style='background-image:url("${unstyledTextLayers[i].matchingStyles.matchingStyles[0].thumbnail}")'></div>${navigationButtons}</div>`;
         styleNameDiv = `<div class='rowAuto'>
                           <div class='horizontalLayout'>
-                            <div class='colAuto primaryBoldText itemText' id='styleName${layerID}'><span>${unstyledTextLayers[i].matchingStyles.matchingStyles[0].styleName}</span></div>
-                            <div class='colAuto infoIcon tooltip'>
-                              <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                      <g id="Artboard" transform="translate(-873.000000, -356.000000)" fill-rule="nonzero">
-                                          <path d="M880,356 C876.134133,356 873,359.134133 873,363 C873,366.865867 876.134133,370 880,370 C883.865867,370 887,366.865867 887,363 C887,359.134133 883.865867,356 880,356 Z M879.191111,366.021511 L879.191111,362.817067 C879.191111,362.37033 879.553263,362.008178 880,362.008178 C880.446737,362.008178 880.808889,362.37033 880.808889,362.817067 L880.808889,366.021511 C880.808889,366.468248 880.446737,366.8304 880,366.8304 C879.553263,366.8304 879.191111,366.468248 879.191111,366.021511 L879.191111,366.021511 Z M880,361.125556 C879.606773,361.125556 879.252265,360.888681 879.101784,360.525387 C878.951302,360.162092 879.034481,359.743922 879.312535,359.465868 C879.590589,359.187815 880.008759,359.104636 880.372053,359.255117 C880.735348,359.405599 880.972222,359.760106 880.972222,360.153333 C880.972222,360.690277 880.536944,361.125556 880,361.125556 Z" id="Shape"></path>
-                                      </g>
-                                  </g>
-                              </svg>
-                              <div class="tooltipText left">
-                                <span id='styleTooltip${layerID}'>
-                                  ${unstyledTextLayers[i].matchingStyles.matchingStyles[0].fontName} - ${unstyledTextLayers[i].matchingStyles.matchingStyles[0].fontSize}
-                                  <br/>
-                                  ${unstyledTextLayers[i].matchingStyles.matchingStyles[0].color}
-                                </span>
+                            <div class='colAvailable horizontalLayout primaryBoldText itemText' id='styleName${layerID}'>
+                              <span>${unstyledTextLayers[i].matchingStyles.matchingStyles[0].styleName}</span>
+                              <div class='colAuto infoIcon tooltip'>
+                                <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="Artboard" transform="translate(-873.000000, -356.000000)" fill-rule="nonzero">
+                                            <path d="M880,356 C876.134133,356 873,359.134133 873,363 C873,366.865867 876.134133,370 880,370 C883.865867,370 887,366.865867 887,363 C887,359.134133 883.865867,356 880,356 Z M879.191111,366.021511 L879.191111,362.817067 C879.191111,362.37033 879.553263,362.008178 880,362.008178 C880.446737,362.008178 880.808889,362.37033 880.808889,362.817067 L880.808889,366.021511 C880.808889,366.468248 880.446737,366.8304 880,366.8304 C879.553263,366.8304 879.191111,366.468248 879.191111,366.021511 L879.191111,366.021511 Z M880,361.125556 C879.606773,361.125556 879.252265,360.888681 879.101784,360.525387 C878.951302,360.162092 879.034481,359.743922 879.312535,359.465868 C879.590589,359.187815 880.008759,359.104636 880.372053,359.255117 C880.735348,359.405599 880.972222,359.760106 880.972222,360.153333 C880.972222,360.690277 880.536944,361.125556 880,361.125556 Z" id="Shape"></path>
+                                        </g>
+                                    </g>
+                                </svg>
+                                <div class="tooltipText left">
+                                  <span id='styleTooltip${layerID}'>
+                                    ${unstyledTextLayers[i].matchingStyles.matchingStyles[0].fontName} - ${unstyledTextLayers[i].matchingStyles.matchingStyles[0].fontSize}
+                                    <br/>
+                                    ${unstyledTextLayers[i].matchingStyles.matchingStyles[0].color}
+                                  </span>
+                                </div>
                               </div>
-                            </div>
                           </div>
                         </div>`;
         checkbox = `<div class="selectRoundCheckbox"><input type="checkbox" onchange='onCheckChange(${JSON.stringify(artboard)},${i})' id='checkbox${layerID}'" checked/><label for="checkbox${layerID}"></label></div>`;
@@ -242,23 +243,25 @@ window.DrawElements = (byArtb, totalLayers) => {
                         <div class='verticalLayout'>\
                           <div class='rowAuto'>
                             <div class='horizontalLayout'>
-                              <div class='colAuto primaryText itemText'><span>${unstyledTextLayers[i].name}<span></div>\
-                              <div class='colAuto infoIcon tooltip'>
-                                <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <g id="Artboard" transform="translate(-873.000000, -356.000000)" fill-rule="nonzero">
-                                            <path d="M880,356 C876.134133,356 873,359.134133 873,363 C873,366.865867 876.134133,370 880,370 C883.865867,370 887,366.865867 887,363 C887,359.134133 883.865867,356 880,356 Z M879.191111,366.021511 L879.191111,362.817067 C879.191111,362.37033 879.553263,362.008178 880,362.008178 C880.446737,362.008178 880.808889,362.37033 880.808889,362.817067 L880.808889,366.021511 C880.808889,366.468248 880.446737,366.8304 880,366.8304 C879.553263,366.8304 879.191111,366.468248 879.191111,366.021511 L879.191111,366.021511 Z M880,361.125556 C879.606773,361.125556 879.252265,360.888681 879.101784,360.525387 C878.951302,360.162092 879.034481,359.743922 879.312535,359.465868 C879.590589,359.187815 880.008759,359.104636 880.372053,359.255117 C880.735348,359.405599 880.972222,359.760106 880.972222,360.153333 C880.972222,360.690277 880.536944,361.125556 880,361.125556 Z" id="Shape"></path>
-                                        </g>
-                                    </g>
-                                </svg>
-                                <div class="tooltipText">
-                                  <span>
-                                    ${unstyledTextLayers[i].fontName} - ${unstyledTextLayers[i].fontSize}
-                                    <br/>
-                                    ${unstyledTextLayers[i].color}
-                                  </span>
+                              <div class='colAvailable horizontalLayout primaryText itemText'>
+                                <span>${unstyledTextLayers[i].name}</span>
+                                <div class='colAuto infoIcon tooltip'>
+                                  <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                          <g id="Artboard" transform="translate(-873.000000, -356.000000)" fill-rule="nonzero">
+                                              <path d="M880,356 C876.134133,356 873,359.134133 873,363 C873,366.865867 876.134133,370 880,370 C883.865867,370 887,366.865867 887,363 C887,359.134133 883.865867,356 880,356 Z M879.191111,366.021511 L879.191111,362.817067 C879.191111,362.37033 879.553263,362.008178 880,362.008178 C880.446737,362.008178 880.808889,362.37033 880.808889,362.817067 L880.808889,366.021511 C880.808889,366.468248 880.446737,366.8304 880,366.8304 C879.553263,366.8304 879.191111,366.468248 879.191111,366.021511 L879.191111,366.021511 Z M880,361.125556 C879.606773,361.125556 879.252265,360.888681 879.101784,360.525387 C878.951302,360.162092 879.034481,359.743922 879.312535,359.465868 C879.590589,359.187815 880.008759,359.104636 880.372053,359.255117 C880.735348,359.405599 880.972222,359.760106 880.972222,360.153333 C880.972222,360.690277 880.536944,361.125556 880,361.125556 Z" id="Shape"></path>
+                                          </g>
+                                      </g>
+                                  </svg>
+                                  <div class="tooltipText">
+                                    <span>
+                                      ${unstyledTextLayers[i].fontName} - ${unstyledTextLayers[i].fontSize}
+                                      <br/>
+                                      ${unstyledTextLayers[i].color}
+                                    </span>
+                                  </div>
                                 </div>
-                              </div>
+                              </div>\
                             </div>
                           </div>
                           <div class='rowAuto'> \

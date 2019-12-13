@@ -559,9 +559,9 @@ html,body{
 
   .itemText{
     margin-bottom: 4px;
-    max-width: 400px;
+    max-width: 32vw;
     span{
-      width:100%;
+      //width:100%;
       text-overflow: ellipsis;
       white-space: nowrap;
       display: inline-block;
@@ -934,22 +934,6 @@ input, textarea {
     opacity: 0;
     transition: opacity 0.3s;
     box-shadow: 0px 2px 11px rgba(0,0,0,0.2);
-
-    &::after {
-      content: "";
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      margin-left: -5px;
-      border-width: 5px;
-      border-style: solid;
-      @include for-theme(light){
-        border-color: $light_tooltipColor transparent transparent transparent;
-      }
-      @include for-theme(dark){
-        border-color: $dark_tooltipColor transparent transparent transparent;
-      }
-    }
 
     span{
       @include primaryText;
