@@ -203,7 +203,7 @@ window.DrawElements = (byArtb, totalLayers) => {
                                       </g>
                                   </g>
                               </svg>
-                              <div class="tooltipText">
+                              <div class="tooltipText left">
                                 <span id='styleTooltip${layerID}'>
                                   ${unstyledTextLayers[i].matchingStyles.matchingStyles[0].fontName} - ${unstyledTextLayers[i].matchingStyles.matchingStyles[0].fontSize}
                                   <br/>

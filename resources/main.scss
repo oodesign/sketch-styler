@@ -686,7 +686,7 @@ html,body{
   label{
     @include primaryText;
     cursor: pointer;
-    
+
     &.offset{
       padding-left: 15px;
       top:1px;
@@ -926,9 +926,11 @@ input, textarea {
     padding: 5px 10px;
     position: absolute;
     z-index: 1;
-    bottom: 150%;
-    left: 7px;
-    margin-left: -120px;
+
+    &.left{
+      margin-left: -220px;
+    }
+
     opacity: 0;
     transition: opacity 0.3s;
     box-shadow: 0px 2px 11px rgba(0,0,0,0.2);
