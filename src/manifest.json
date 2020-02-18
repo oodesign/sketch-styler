@@ -10,7 +10,7 @@
     {
       "name": "Selected Text",
       "identifier": "assign-styles-automatically.styleselectedtext",
-      "shortcut": "ctrl shift option t",
+      "shortcut": "ctrl shift option s",
       "script": "./AssignStylesAutomatically.js",
       "handlers": {
         "run": "onScanLayer",
@@ -34,7 +34,7 @@
     {
       "name": "Selected Page",
       "identifier": "assign-styles-automatically.styleselectedpage",
-      "shortcut": "ctrl shift option s",
+      "shortcut": "ctrl shift option g",
       "script": "./AssignStylesAutomatically.js",
       "handlers": {
         "run": "onScanPage",
