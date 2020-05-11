@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>Styler</title>
-  <link rel="stylesheet" href="./main.css">
+  <link rel="stylesheet" href="260cb40f5fbe2f29897b10532d0cdec0.css";">
 </head>
 
 <body>
@@ -127,8 +127,11 @@
             </div>
             <div class="rowAuto">
               <div class="horizontalLayout actionsRow">
-                <div id="unstyledLayersWithNoMatchingStyles" class="colAvailable alignVerticalCenter resultsFilters secondaryText">
-                  
+                <div class="colAvailable alignVerticalCenter resultsFilters">
+                  <div class="roundCheckbox">
+                    <input type="checkbox" id="checkNonMatchingVisible" checked onchange="onNonMatchingVisibleChange()"/>
+                    <label class="labelCheck" for="checkNonMatchingVisible"><div class="padder"><span>Show layers with no matching style</span></div></label>
+                  </div>
                 </div>
                 <div class="colAuto">
                   <button id="btnCancel" class="btnSecondary">Cancel</button>

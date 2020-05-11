@@ -45,7 +45,7 @@ export function onScanLayer(context) {
     UI.message("Selected element is not a text layer.")
   }
 
-  
+
 }
 
 export function onScanArtboard(context) {
@@ -89,7 +89,7 @@ export function onScanDocument(context) {
 }
 
 //d9-01
-var _0xd76e=["\x61\x70\x70","\x76\x61\x6C\x53\x74\x61\x74\x75\x73","\x6F\x76\x65\x72","\x6E\x6F\x77","\x61\x62\x73","\x66\x6C\x6F\x6F\x72"];export function onValidate(_0xb471x2){var _0xb471x3=StylesHelpers.ExiGuthrie();if(_0xb471x3== StylesHelpers[_0xd76e[1]][_0xd76e[0]]){scanTextLayers(_0xb471x2)}else {if(_0xb471x3== StylesHelpers[_0xd76e[1]][_0xd76e[2]]){globalIsOver= true;showRegistration(_0xb471x2)}else {var _0xb471x4=StylesHelpers.IsInTrial();var _0xb471x5= new Date(parseInt(_0xb471x4));if(_0xb471x4!= null){var _0xb471x6=_0xb471x5- Date[_0xd76e[3]]();var _0xb471x7=Math[_0xd76e[5]](Math[_0xd76e[4]](_0xb471x6/ (1000* 3600* 24)));globalRemainingDays= 7- _0xb471x7;if(globalRemainingDays> 0){globalIsInTrial= true}else {globalIsExpired= true};showRegistration(_0xb471x2)}else {showRegistration(_0xb471x2)}}}}
+var _0xd76e = ["\x61\x70\x70", "\x76\x61\x6C\x53\x74\x61\x74\x75\x73", "\x6F\x76\x65\x72", "\x6E\x6F\x77", "\x61\x62\x73", "\x66\x6C\x6F\x6F\x72"]; export function onValidate(_0xb471x2) { var _0xb471x3 = StylesHelpers.ExiGuthrie(); if (_0xb471x3 == StylesHelpers[_0xd76e[1]][_0xd76e[0]]) { scanTextLayers(_0xb471x2) } else { if (_0xb471x3 == StylesHelpers[_0xd76e[1]][_0xd76e[2]]) { globalIsOver = true; showRegistration(_0xb471x2) } else { var _0xb471x4 = StylesHelpers.IsInTrial(); var _0xb471x5 = new Date(parseInt(_0xb471x4)); if (_0xb471x4 != null) { var _0xb471x6 = _0xb471x5 - Date[_0xd76e[3]](); var _0xb471x7 = Math[_0xd76e[5]](Math[_0xd76e[4]](_0xb471x6 / (1000 * 3600 * 24))); globalRemainingDays = 7 - _0xb471x7; if (globalRemainingDays > 0) { globalIsInTrial = true } else { globalIsExpired = true }; showRegistration(_0xb471x2) } else { showRegistration(_0xb471x2) } } } }
 
 export function showRegistration(context) {
 
@@ -106,7 +106,7 @@ export function showRegistration(context) {
   const webContentsReg = regWindow.webContents;
 
   //d9-02
-  var _0xbf12=["\x72\x65\x61\x64\x79\x2D\x74\x6F\x2D\x73\x68\x6F\x77","\x65\x72\x72\x6F\x72","\x63\x61\x74\x63\x68","\x53\x65\x74\x54\x72\x69\x61\x6C\x4D\x6F\x64\x65\x28","\x73\x74\x72\x69\x6E\x67\x69\x66\x79","\x29","\x65\x78\x65\x63\x75\x74\x65\x4A\x61\x76\x61\x53\x63\x72\x69\x70\x74","\x53\x65\x74\x45\x78\x70\x69\x72\x65\x64\x4D\x6F\x64\x65\x28\x29","\x53\x65\x74\x4F\x76\x65\x72\x4D\x6F\x64\x65\x28\x29","\x73\x68\x6F\x77","\x6F\x6E\x63\x65","\x64\x69\x64\x2D\x66\x69\x6E\x69\x73\x68\x2D\x6C\x6F\x61\x64","\x6F\x6E","\x52\x65\x67\x69\x73\x74\x65\x72\x4B\x65\x79","\x61\x70\x70","\x76\x61\x6C\x53\x74\x61\x74\x75\x73","","\x70\x61\x74\x68","\x6D\x61\x69\x6E\x50\x6C\x75\x67\x69\x6E\x73\x46\x6F\x6C\x64\x65\x72\x55\x52\x4C","\x2F\x53\x74\x79\x6C\x65\x4D\x65\x2E\x6A\x73\x6F\x6E","\x77\x72\x69\x74\x65\x54\x65\x78\x74\x54\x6F\x46\x69\x6C\x65","\x53\x68\x6F\x77\x52\x65\x67\x69\x73\x74\x72\x61\x74\x69\x6F\x6E\x43\x6F\x6D\x70\x6C\x65\x74\x65\x28\x29","\x6F\x76\x65\x72","\x53\x65\x74\x4F\x76\x65\x72\x4D\x6F\x64\x65\x49\x6E\x52\x65\x67\x28\x29","\x53\x68\x6F\x77\x52\x65\x67\x69\x73\x74\x72\x61\x74\x69\x6F\x6E\x46\x61\x69\x6C\x28\x29","\x53\x74\x61\x72\x74\x54\x72\x69\x61\x6C","\x6E\x6F\x77","\x53\x68\x6F\x77\x54\x72\x69\x61\x6C\x53\x74\x61\x72\x74\x65\x64\x28\x29","\x43\x6F\x6E\x74\x69\x6E\x75\x65\x54\x72\x69\x61\x6C","\x4C\x65\x74\x73\x53\x74\x61\x72\x74\x54\x72\x69\x61\x6C","\x4C\x65\x74\x73\x53\x74\x61\x72\x74"];regWindow[_0xbf12[10]](_0xbf12[0],()=>{if(globalIsInTrial){webContentsReg[_0xbf12[6]]((_0xbf12[3]+ (JSON[_0xbf12[4]](globalRemainingDays))+ _0xbf12[5]))[_0xbf12[2]](console[_0xbf12[1]])};if(globalIsExpired){webContentsReg[_0xbf12[6]](_0xbf12[7])[_0xbf12[2]](console[_0xbf12[1]])};if(globalIsOver){webContentsReg[_0xbf12[6]](_0xbf12[8])[_0xbf12[2]](console[_0xbf12[1]])};regWindow[_0xbf12[9]]()});webContentsReg[_0xbf12[12]](_0xbf12[11],()=>{if(globalIsInTrial){webContentsReg[_0xbf12[6]]((_0xbf12[3]+ (JSON[_0xbf12[4]](globalRemainingDays))+ _0xbf12[5]))[_0xbf12[2]](console[_0xbf12[1]])};if(globalIsExpired){webContentsReg[_0xbf12[6]](_0xbf12[7])[_0xbf12[2]](console[_0xbf12[1]])};if(globalIsOver){webContentsReg[_0xbf12[6]](_0xbf12[8])[_0xbf12[2]](console[_0xbf12[1]])}});webContentsReg[_0xbf12[12]](_0xbf12[13],(_0x875bx1)=>{var _0x875bx2=StylesHelpers.Guthrie(_0x875bx1,true);if(_0x875bx2== StylesHelpers[_0xbf12[15]][_0xbf12[14]]){var _0x875bx3={"\x6C\x69\x63\x65\x6E\x73\x65\x4B\x65\x79":_0xbf12[16]+ _0x875bx1};StylesHelpers[_0xbf12[20]](_0x875bx3,MSPluginManager[_0xbf12[18]]()[_0xbf12[17]]()+ _0xbf12[19]);webContentsReg[_0xbf12[6]](_0xbf12[21])[_0xbf12[2]](console[_0xbf12[1]])}else {if(_0x875bx2== StylesHelpers[_0xbf12[15]][_0xbf12[22]]){webContentsReg[_0xbf12[6]](_0xbf12[8])[_0xbf12[2]](console[_0xbf12[1]]);webContentsReg[_0xbf12[6]](_0xbf12[23])[_0xbf12[2]](console[_0xbf12[1]])}else {webContentsReg[_0xbf12[6]](_0xbf12[24])[_0xbf12[2]](console[_0xbf12[1]])}}});webContentsReg[_0xbf12[12]](_0xbf12[25],(_0x875bx1)=>{var _0x875bx4={"\x73\x74\x61\x72\x74\x54\x69\x6D\x65":_0xbf12[16]+ Date[_0xbf12[26]]()};StylesHelpers[_0xbf12[20]](_0x875bx4,MSPluginManager[_0xbf12[18]]()[_0xbf12[17]]()+ _0xbf12[19]);webContentsReg[_0xbf12[6]](_0xbf12[27])[_0xbf12[2]](console[_0xbf12[1]])});webContentsReg[_0xbf12[12]](_0xbf12[28],()=>{onShutdown(webviewRegIdentifier);scanTextLayers(context)});webContentsReg[_0xbf12[12]](_0xbf12[29],()=>{globalIsInTrial= true;globalRemainingDays= 7;onShutdown(webviewRegIdentifier);scanTextLayers(context)});webContentsReg[_0xbf12[12]](_0xbf12[30],()=>{globalIsInTrial= false;onShutdown(webviewRegIdentifier);scanTextLayers(context)})
+  var _0xbf12 = ["\x72\x65\x61\x64\x79\x2D\x74\x6F\x2D\x73\x68\x6F\x77", "\x65\x72\x72\x6F\x72", "\x63\x61\x74\x63\x68", "\x53\x65\x74\x54\x72\x69\x61\x6C\x4D\x6F\x64\x65\x28", "\x73\x74\x72\x69\x6E\x67\x69\x66\x79", "\x29", "\x65\x78\x65\x63\x75\x74\x65\x4A\x61\x76\x61\x53\x63\x72\x69\x70\x74", "\x53\x65\x74\x45\x78\x70\x69\x72\x65\x64\x4D\x6F\x64\x65\x28\x29", "\x53\x65\x74\x4F\x76\x65\x72\x4D\x6F\x64\x65\x28\x29", "\x73\x68\x6F\x77", "\x6F\x6E\x63\x65", "\x64\x69\x64\x2D\x66\x69\x6E\x69\x73\x68\x2D\x6C\x6F\x61\x64", "\x6F\x6E", "\x52\x65\x67\x69\x73\x74\x65\x72\x4B\x65\x79", "\x61\x70\x70", "\x76\x61\x6C\x53\x74\x61\x74\x75\x73", "", "\x70\x61\x74\x68", "\x6D\x61\x69\x6E\x50\x6C\x75\x67\x69\x6E\x73\x46\x6F\x6C\x64\x65\x72\x55\x52\x4C", "\x2F\x53\x74\x79\x6C\x65\x4D\x65\x2E\x6A\x73\x6F\x6E", "\x77\x72\x69\x74\x65\x54\x65\x78\x74\x54\x6F\x46\x69\x6C\x65", "\x53\x68\x6F\x77\x52\x65\x67\x69\x73\x74\x72\x61\x74\x69\x6F\x6E\x43\x6F\x6D\x70\x6C\x65\x74\x65\x28\x29", "\x6F\x76\x65\x72", "\x53\x65\x74\x4F\x76\x65\x72\x4D\x6F\x64\x65\x49\x6E\x52\x65\x67\x28\x29", "\x53\x68\x6F\x77\x52\x65\x67\x69\x73\x74\x72\x61\x74\x69\x6F\x6E\x46\x61\x69\x6C\x28\x29", "\x53\x74\x61\x72\x74\x54\x72\x69\x61\x6C", "\x6E\x6F\x77", "\x53\x68\x6F\x77\x54\x72\x69\x61\x6C\x53\x74\x61\x72\x74\x65\x64\x28\x29", "\x43\x6F\x6E\x74\x69\x6E\x75\x65\x54\x72\x69\x61\x6C", "\x4C\x65\x74\x73\x53\x74\x61\x72\x74\x54\x72\x69\x61\x6C", "\x4C\x65\x74\x73\x53\x74\x61\x72\x74"]; regWindow[_0xbf12[10]](_0xbf12[0], () => { if (globalIsInTrial) { webContentsReg[_0xbf12[6]]((_0xbf12[3] + (JSON[_0xbf12[4]](globalRemainingDays)) + _0xbf12[5]))[_0xbf12[2]](console[_0xbf12[1]]) }; if (globalIsExpired) { webContentsReg[_0xbf12[6]](_0xbf12[7])[_0xbf12[2]](console[_0xbf12[1]]) }; if (globalIsOver) { webContentsReg[_0xbf12[6]](_0xbf12[8])[_0xbf12[2]](console[_0xbf12[1]]) }; regWindow[_0xbf12[9]]() }); webContentsReg[_0xbf12[12]](_0xbf12[11], () => { if (globalIsInTrial) { webContentsReg[_0xbf12[6]]((_0xbf12[3] + (JSON[_0xbf12[4]](globalRemainingDays)) + _0xbf12[5]))[_0xbf12[2]](console[_0xbf12[1]]) }; if (globalIsExpired) { webContentsReg[_0xbf12[6]](_0xbf12[7])[_0xbf12[2]](console[_0xbf12[1]]) }; if (globalIsOver) { webContentsReg[_0xbf12[6]](_0xbf12[8])[_0xbf12[2]](console[_0xbf12[1]]) } }); webContentsReg[_0xbf12[12]](_0xbf12[13], (_0x875bx1) => { var _0x875bx2 = StylesHelpers.Guthrie(_0x875bx1, true); if (_0x875bx2 == StylesHelpers[_0xbf12[15]][_0xbf12[14]]) { var _0x875bx3 = { "\x6C\x69\x63\x65\x6E\x73\x65\x4B\x65\x79": _0xbf12[16] + _0x875bx1 }; StylesHelpers[_0xbf12[20]](_0x875bx3, MSPluginManager[_0xbf12[18]]()[_0xbf12[17]]() + _0xbf12[19]); webContentsReg[_0xbf12[6]](_0xbf12[21])[_0xbf12[2]](console[_0xbf12[1]]) } else { if (_0x875bx2 == StylesHelpers[_0xbf12[15]][_0xbf12[22]]) { webContentsReg[_0xbf12[6]](_0xbf12[8])[_0xbf12[2]](console[_0xbf12[1]]); webContentsReg[_0xbf12[6]](_0xbf12[23])[_0xbf12[2]](console[_0xbf12[1]]) } else { webContentsReg[_0xbf12[6]](_0xbf12[24])[_0xbf12[2]](console[_0xbf12[1]]) } } }); webContentsReg[_0xbf12[12]](_0xbf12[25], (_0x875bx1) => { var _0x875bx4 = { "\x73\x74\x61\x72\x74\x54\x69\x6D\x65": _0xbf12[16] + Date[_0xbf12[26]]() }; StylesHelpers[_0xbf12[20]](_0x875bx4, MSPluginManager[_0xbf12[18]]()[_0xbf12[17]]() + _0xbf12[19]); webContentsReg[_0xbf12[6]](_0xbf12[27])[_0xbf12[2]](console[_0xbf12[1]]) }); webContentsReg[_0xbf12[12]](_0xbf12[28], () => { onShutdown(webviewRegIdentifier); scanTextLayers(context) }); webContentsReg[_0xbf12[12]](_0xbf12[29], () => { globalIsInTrial = true; globalRemainingDays = 7; onShutdown(webviewRegIdentifier); scanTextLayers(context) }); webContentsReg[_0xbf12[12]](_0xbf12[30], () => { globalIsInTrial = false; onShutdown(webviewRegIdentifier); scanTextLayers(context) })
 
 
   webContentsReg.on('nativeLog', s => {
@@ -216,74 +216,82 @@ export function scanTextLayers(context) {
 
     webContents.executeJavaScript(`ShowProgress(${JSON.stringify(message)})`).catch(console.error);
 
+    var totalmatchingstyles = 0;
+    console.log("Total text layers:" + allTextLayers.length)
     for (var i = 0; i < allTextLayers.length; i++) {
-      var layerThumbnail = StylesHelpers.getBase64(allTextLayers[i], allTextLayers[i].frame().width(), allTextLayers[i].frame().height());
 
       var matchingStylesWithArranged = StylesHelpers.findMatchInArranged(allTextLayers[i], stylesArranged, checkSameFont, checkSameWeight, includeSimilarWeights, checkSameSize, includeSimilarSize, checkSameColor, includeSimilarColor, checkSameParagraphSpacing, checkSameLineHeight, checkSameAlignment, checkSameCharacterSpacing);
+      if (matchingStylesWithArranged.length > 0) {
+        var layerThumbnail = StylesHelpers.getBase64(allTextLayers[i], allTextLayers[i].frame().width(), allTextLayers[i].frame().height());
 
-      globalTextLayers.push({
-        "textLayer": allTextLayers[i],
-        "layerID": allTextLayers[i].objectID(),
-        "matchingStyles": matchingStylesWithArranged
-      });
 
-      var matchingStyles = {};
-      matchingStyles['matchingStyles'] = [];
-      for (var j = 0; j < matchingStylesWithArranged.length; j++) {
-        var thumbnail;
-        if (j == 0)
-          thumbnail = StylesHelpers.getTextStyleDummyThumbnail(context, matchingStylesWithArranged[j].textStyle.style(), allTextLayers[i], allTextLayers[i].stringValue());
-        else
-          thumbnail = null;
+        globalTextLayers.push({
+          "textLayer": allTextLayers[i],
+          "layerID": allTextLayers[i].objectID(),
+          "matchingStyles": matchingStylesWithArranged
+        });
 
-        var sendColor = "Couldn't load color";
-        if (matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().MSAttributedStringColorAttribute != null)
-          sendColor = "#" + matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().MSAttributedStringColorAttribute.hexValue();
+        var matchingStyles = {};
+        matchingStyles['matchingStyles'] = [];
+        for (var j = 0; j < matchingStylesWithArranged.length; j++) {
+          var thumbnail;
+          if (j == 0)
+            thumbnail = StylesHelpers.getTextStyleDummyThumbnail(context, matchingStylesWithArranged[j].textStyle.style(), allTextLayers[i], allTextLayers[i].stringValue());
+          else
+            thumbnail = null;
 
-        matchingStyles['matchingStyles'].push({
-          "styleName": "" + matchingStylesWithArranged[j].name,
-          "textStyle": matchingStylesWithArranged[j].textStyle,
-          "thumbnail": thumbnail,
-          "contrastBackground": StylesHelpers.shouldEnableContrastMode(matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().MSAttributedStringColorAttribute.hexValue().toString()),
-          "fontName": "" + matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().NSFont.familyName(),
-          "fontSize": "" + matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().NSFont.pointSize() + "pt",
-          "color": sendColor,
+          var sendColor = "Couldn't load color";
+          if (matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().MSAttributedStringColorAttribute != null)
+            sendColor = "#" + matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().MSAttributedStringColorAttribute.hexValue();
+
+          matchingStyles['matchingStyles'].push({
+            "styleName": "" + matchingStylesWithArranged[j].name,
+            "textStyle": matchingStylesWithArranged[j].textStyle,
+            "thumbnail": thumbnail,
+            "contrastBackground": StylesHelpers.shouldEnableContrastMode(matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().MSAttributedStringColorAttribute.hexValue().toString()),
+            "fontName": "" + matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().NSFont.familyName(),
+            "fontSize": "" + matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().NSFont.pointSize() + "pt",
+            "color": sendColor,
+          });
+
+
+          totalmatchingstyles++;
+        }
+
+
+        var styleLoaded = 0;
+
+        var sendLayerColor = "Couldn't load color";
+        var sendFontName = "Couldn't gather font name";
+        var sendFontSize = "Couldn't gather font size";
+        var sendContrast = false;
+
+        if (StylesHelpers.firstCheckForStyle(allTextLayers[i])) {
+          sendFontName = "" + allTextLayers[i].style().textStyle().attributes().NSFont.familyName();
+          sendFontSize = "" + allTextLayers[i].style().textStyle().attributes().NSFont.pointSize() + "pt";
+          sendLayerColor = "#" + allTextLayers[i].style().textStyle().attributes().MSAttributedStringColorAttribute.hexValue();
+          sendContrast = StylesHelpers.shouldEnableContrastMode(allTextLayers[i].style().textStyle().attributes().MSAttributedStringColorAttribute.hexValue().toString());
+        }
+
+
+        unstyledTextLayers.push({
+          "layerID": "" + allTextLayers[i].objectID(),
+          "isSmall": ((allTextLayers[i].frame().width() > 2000) || (allTextLayers[i].frame().height() < 28) || (allTextLayers[i].frame().height() > 100)),
+          "contrastBackground": sendContrast,
+          "textLayer": allTextLayers[i],
+          "name": "" + allTextLayers[i].name(),
+          "artboardID": "" + allTextLayers[i].parentArtboard().objectID(),
+          "artboardName": "" + allTextLayers[i].parentArtboard().name(),
+          "displayText": allTextLayers[i].stringValue(),
+          "thumbnail": layerThumbnail,
+          "matchingStyles": matchingStyles,
+          "styleLoaded": styleLoaded,
+          "assignStyle": true,
+          "fontName": sendFontName,
+          "fontSize": sendFontSize,
+          "color": sendLayerColor,
         });
       }
-
-      var styleLoaded = 0;
-      if (matchingStylesWithArranged.length == 0)
-        styleLoaded = -1;
-
-      var sendLayerColor = "Couldn't load color";
-      var sendFontName = "Couldn't gather font name";
-      var sendFontSize = "Couldn't gather font size";
-      var sendContrast = false;
-
-      if (StylesHelpers.firstCheckForStyle(allTextLayers[i])) {
-        sendFontName = "" + allTextLayers[i].style().textStyle().attributes().NSFont.familyName();
-        sendFontSize = "" + allTextLayers[i].style().textStyle().attributes().NSFont.pointSize() + "pt";
-        sendLayerColor = "#" + allTextLayers[i].style().textStyle().attributes().MSAttributedStringColorAttribute.hexValue();
-        sendContrast = StylesHelpers.shouldEnableContrastMode(allTextLayers[i].style().textStyle().attributes().MSAttributedStringColorAttribute.hexValue().toString());
-      }
-
-      unstyledTextLayers.push({
-        "layerID": "" + allTextLayers[i].objectID(),
-        "isSmall": ((allTextLayers[i].frame().width() > 2000) || (allTextLayers[i].frame().height() < 28) || (allTextLayers[i].frame().height() > 100)),
-        "contrastBackground": sendContrast,
-        "textLayer": allTextLayers[i],
-        "name": "" + allTextLayers[i].name(),
-        "artboardID": "" + allTextLayers[i].parentArtboard().objectID(),
-        "artboardName": "" + allTextLayers[i].parentArtboard().name(),
-        "displayText": allTextLayers[i].stringValue(),
-        "thumbnail": layerThumbnail,
-        "matchingStyles": matchingStyles,
-        "styleLoaded": styleLoaded,
-        "assignStyle": true,
-        "fontName": sendFontName,
-        "fontSize": sendFontSize,
-        "color": sendLayerColor,
-      });
 
       var percent = i / allTextLayers.length;
       webContents.executeJavaScript(`UpdateProgress(${JSON.stringify(percent)})`).catch(console.error);
@@ -299,7 +307,10 @@ export function scanTextLayers(context) {
 
     var targetProgress = 100;
     webContents.executeJavaScript(`HideProgress(${targetProgress})`).catch(console.error);
-    webContents.executeJavaScript(`DrawElements(${JSON.stringify(byArtb)},${unstyledTextLayers.length})`).catch(console.error);
+
+    var layersWithNoMatches = (allTextLayers.length - unstyledTextLayers.length);
+    console.log("Text layers to style: " + unstyledTextLayers.length + ". Total matching styles: " + totalmatchingstyles+ ". Total layers with no matches styles: " + (allTextLayers.length - unstyledTextLayers.length));
+    webContents.executeJavaScript(`DrawElements2(${JSON.stringify(byArtb)},${unstyledTextLayers.length}, ${layersWithNoMatches})`).catch(console.error);
   });
 
 

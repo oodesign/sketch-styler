@@ -507,13 +507,13 @@ html, body {
 
 @media (prefers-color-scheme: light) {
   .logo {
-    background-image: url("./images/LogoLight.png");
+    background-image: url(d6ef1b4038db17b9d78a101b3eab8918.png";);
   }
 }
 
 @media (prefers-color-scheme: dark) {
   .logo {
-    background-image: url("./images/LogoDark.png");
+    background-image: url(b56871af07932191ea66d3ced2c57ddc.png";);
   }
 }
 
@@ -3010,7 +3010,6 @@ a {
   background-color: transparent;
   -webkit-transition: background-color 0.2s ease-out;
   transition: background-color 0.2s ease-out;
-  padding: 10px 0 10px 0;
 }
 
 @media (prefers-color-scheme: light) {
@@ -3028,7 +3027,6 @@ a {
 .listItemRow .selectRoundCheckbox {
   -ms-grid-column: 1;
   grid-column: 1;
-  top: 30px;
 }
 
 .listItemRow .realTextLayer {
@@ -3044,8 +3042,8 @@ a {
 .listItemRow .itemRowTitle {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: fit-content(800px) fit-content(50px);
-      grid-template-columns: fit-content(800px) fit-content(50px);
+  -ms-grid-columns: fit-content(800px) auto;
+      grid-template-columns: fit-content(800px) auto;
   padding: 0 20px 0 0;
 }
 
@@ -3061,4 +3059,3 @@ a {
   -ms-grid-column: 2;
   grid-column: 2;
 }
-/*# sourceMappingURL=main.css.map */

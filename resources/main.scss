@@ -1042,3 +1042,52 @@ a{
   transform:translate(-50%,50px);
   transition: all 0.3s ease-out
 }
+
+.listItemRow{
+  display: grid;
+  grid-template-columns: 50px 1fr 1fr;
+  background-color: transparent;
+  transition: background-color 0.2s ease-out;
+  padding: 10px 0 10px 0;
+
+  &:hover{
+    
+    @include for-theme(light){
+      background-color: $light_leftPanelBackgroundColor;
+    }
+    @include for-theme(dark){
+      background-color: $dark_leftPanelBackgroundColor;
+    }
+  }
+
+  .selectRoundCheckbox{
+    grid-column: 1;
+    top:30px;
+  }
+
+  .realTextLayer{
+    grid-column: 2;
+  }
+
+  .relatedStyles{
+    grid-column: 3;
+  }
+
+  .itemRowTitle{
+    display: grid;
+    grid-template-columns: fit-content(800px) fit-content(50px);
+    padding: 0 20px 0 0;
+
+    .itemText{
+      grid-column: 1;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .infoIcon{
+      grid-column: 2;
+    }
+  }
+
+}
