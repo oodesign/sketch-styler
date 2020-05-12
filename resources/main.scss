@@ -901,6 +901,43 @@ $half: round($loops / 2);
   }
 }
 
+.progress-0{
+  .radial-inner-bg{
+    visibility: hidden;
+  }
+
+  &.item{
+    background:transparent;
+    border:none;
+  }
+}
+
+@keyframes preloadFadeInOut {
+  from {opacity:0}
+  to {opacity:1}
+}
+
+.preload{
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 0;
+  border-radius: 50%;
+  
+  @include for-theme(light){
+    background-color: $light_tone_backgroundColor;
+  }
+  @include for-theme(dark){
+    background-color: $dark_tone_backgroundColor;
+  }
+
+  
+
+  animation: preloadFadeInOut 1s infinite alternate;
+}
+
+
+
 
 input, textarea {
   -webkit-user-select: auto;

@@ -406,8 +406,6 @@ html, body {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  visibility: hidden;
-  opacity: 0;
 }
 
 .progressCircle .secondaryText {
@@ -507,13 +505,13 @@ html, body {
 
 @media (prefers-color-scheme: light) {
   .logo {
-    background-image: url("./images/LogoLight.png");
+    background-image: url(d6ef1b4038db17b9d78a101b3eab8918.png";);
   }
 }
 
 @media (prefers-color-scheme: dark) {
   .logo {
-    background-image: url("./images/LogoDark.png");
+    background-image: url(b56871af07932191ea66d3ced2c57ddc.png";);
   }
 }
 
@@ -2799,7 +2797,7 @@ div::-webkit-scrollbar-thumb {
   visibility: hidden;
 }
 
-.progress-0.item {
+.progress-0 .item {
   background: transparent;
   border: none;
 }
@@ -2828,20 +2826,9 @@ div::-webkit-scrollbar-thumb {
   position: absolute;
   top: 0;
   border-radius: 50%;
-  -webkit-animation: preloadFadeInOut 1s infinite alternate;
-          animation: preloadFadeInOut 1s infinite alternate;
-}
-
-@media (prefers-color-scheme: light) {
-  .preload {
-    background-color: #DDDDDD;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .preload {
-    background-color: #404040;
-  }
+  background-color: #F9F9F9;
+  -webkit-animation: preloadFadeInOut 2s infinite;
+          animation: preloadFadeInOut 2s infinite;
 }
 
 input, textarea {
@@ -3110,4 +3097,3 @@ a {
   -ms-grid-column: 2;
   grid-column: 2;
 }
-/*# sourceMappingURL=main.css.map */

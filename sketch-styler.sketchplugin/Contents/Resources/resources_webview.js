@@ -94,7 +94,8 @@
 /***/ (function(module, exports) {
 
 // disable the context menu (eg. the right click menu) to have a more native feel
-document.addEventListener('contextmenu', function (e) {//e.preventDefault()
+document.addEventListener('contextmenu', function (e) {
+  e.preventDefault();
 });
 var globalUnstyledLayers;
 var globalTotalLayers;
@@ -178,75 +179,6 @@ window.DrawActiveLibraries = function (activeLibraries) {
   document.getElementById('activeLibraries').innerHTML = inner;
 };
 
-window.DrawElements = function (byArtb, totalLayers) {
-  globalUnstyledLayers = byArtb;
-  globalTotalLayers = totalLayers;
-  globalAssignLayers = 0;
-  var inner = "";
-  var artboardID = 0;
-  var layerID = 0;
-
-  for (var artboard in byArtb) {
-    var unstyledTextLayers = byArtb[artboard];
-    if (layerID == 0) inner += "<div class='primaryBigText'>".concat(byArtb[artboard][0].artboardName, "</div>");else inner += "<div class='primaryBigText separeHeader'>".concat(byArtb[artboard][0].artboardName, "</div>");
-
-    for (var i = 0; i < unstyledTextLayers.length; i++) {
-      globalAssignLayers++;
-      var matchingStyles = "";
-      var styleNameDiv = "";
-      var navigationButtons = "";
-      var checkbox = "";
-
-      if (unstyledTextLayers[i].matchingStyles.matchingStyles.length > 1) {
-        navigationButtons = "<button class='btnThumbnailNavigationLeft btnArrow' onclick='loadPreviousStyle(".concat(JSON.stringify(artboard), ",").concat(i, ",").concat(layerID, ")'> \n                              <svg width=\"8px\" height=\"14px\" viewBox=\"0 0 8 14\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n                              <g id=\"Symbols\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n                                  <g id=\"Icons/Arrow\" transform=\"translate(-9.000000, -5.000000)\" fill=\"#FFFFFF\" fill-rule=\"nonzero\">\n                                      <path d=\"M15.7303757,6.64230705 C16.0898748,6.2666066 16.0898748,5.6574758 15.7303757,5.28177534 C15.3708766,4.90607489 14.7880134,4.90607489 14.4285143,5.28177534 L8,12 L14.4285143,18.7182247 C14.7880134,19.0939251 15.3708766,19.0939251 15.7303757,18.7182247 C16.0898748,18.3425242 16.0898748,17.7333934 15.7303757,17.3576929 L10.6037228,12 L15.7303757,6.64230705 Z\" id=\"Path\"></path>\n                                  </g>\n                              </g>\n                              </svg>\n                            </button>                            <button class='btnThumbnailNavigationRight btnArrow' onclick='loadNextStyle(").concat(JSON.stringify(artboard), ",").concat(i, ",").concat(layerID, ")'>\n\n                              <svg width=\"8px\" height=\"14px\" viewBox=\"0 0 8 14\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n                              <g id=\"Symbols\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n                                  <g id=\"Icons/Arrow\" transform=\"translate(-7.000000, -5.000000)\" fill=\"#FFFFFF\" fill-rule=\"nonzero\">\n                                      <path d=\"M15.7303757,6.64230705 C16.0898748,6.2666066 16.0898748,5.6574758 15.7303757,5.28177534 C15.3708766,4.90607489 14.7880134,4.90607489 14.4285143,5.28177534 L8,12 L14.4285143,18.7182247 C14.7880134,19.0939251 15.3708766,19.0939251 15.7303757,18.7182247 C16.0898748,18.3425242 16.0898748,17.7333934 15.7303757,17.3576929 L10.6037228,12 L15.7303757,6.64230705 Z\" id=\"Path\" transform=\"translate(12.000000, 12.000000) scale(-1, 1) translate(-12.000000, -12.000000) \"></path>\n                                  </g>\n                              </g>\n                              </svg>\n                              \n                            </button>");
-      }
-
-      var contrastModeOnLayer = "";
-      if (unstyledTextLayers[i].contrastBackground) contrastModeOnLayer = "contrastMode";
-      var isSmall = "";
-      if (unstyledTextLayers[i].isSmall) isSmall = "isSmallThumbnail";
-      var hidable = "";
-
-      if (unstyledTextLayers[i].matchingStyles.matchingStyles.length > 0) {
-        var contrastModeOnStyle = "";
-        if (unstyledTextLayers[i].matchingStyles.matchingStyles[0].contrastBackground) contrastModeOnStyle = "contrastMode";
-        matchingStyles = "<div class='thumbnailContainer stylePreview' ><div class=\"thumbnail ".concat(contrastModeOnStyle, " ").concat(isSmall, "\" id='similarThumb").concat(layerID, "' style='background-image:url(\"").concat(unstyledTextLayers[i].matchingStyles.matchingStyles[0].thumbnail, "\")'></div>").concat(navigationButtons, "</div>");
-        styleNameDiv = "<div class='rowAuto'>\n                          <div class='horizontalLayout'>\n                            <div class='colAvailable horizontalLayout primaryBoldText itemText' id='styleName".concat(layerID, "'>\n                              <span>").concat(unstyledTextLayers[i].matchingStyles.matchingStyles[0].styleName, "</span>\n                              <div class='colAuto infoIcon tooltip'>\n                                <svg width=\"14px\" height=\"14px\" viewBox=\"0 0 14 14\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n                                    <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n                                        <g id=\"Artboard\" transform=\"translate(-873.000000, -356.000000)\" fill-rule=\"nonzero\">\n                                            <path d=\"M880,356 C876.134133,356 873,359.134133 873,363 C873,366.865867 876.134133,370 880,370 C883.865867,370 887,366.865867 887,363 C887,359.134133 883.865867,356 880,356 Z M879.191111,366.021511 L879.191111,362.817067 C879.191111,362.37033 879.553263,362.008178 880,362.008178 C880.446737,362.008178 880.808889,362.37033 880.808889,362.817067 L880.808889,366.021511 C880.808889,366.468248 880.446737,366.8304 880,366.8304 C879.553263,366.8304 879.191111,366.468248 879.191111,366.021511 L879.191111,366.021511 Z M880,361.125556 C879.606773,361.125556 879.252265,360.888681 879.101784,360.525387 C878.951302,360.162092 879.034481,359.743922 879.312535,359.465868 C879.590589,359.187815 880.008759,359.104636 880.372053,359.255117 C880.735348,359.405599 880.972222,359.760106 880.972222,360.153333 C880.972222,360.690277 880.536944,361.125556 880,361.125556 Z\" id=\"Shape\"></path>\n                                        </g>\n                                    </g>\n                                </svg>\n                                <div class=\"tooltipText left\">\n                                  <span id='styleTooltip").concat(layerID, "'>\n                                    ").concat(unstyledTextLayers[i].matchingStyles.matchingStyles[0].fontName, " - ").concat(unstyledTextLayers[i].matchingStyles.matchingStyles[0].fontSize, "\n                                    <br/>\n                                    ").concat(unstyledTextLayers[i].matchingStyles.matchingStyles[0].color, "\n                                  </span>\n                                </div>\n                              </div>\n                          </div>\n                        </div>");
-        checkbox = "<div class=\"selectRoundCheckbox\"><input type=\"checkbox\" onchange='onCheckChange(".concat(JSON.stringify(artboard), ",").concat(i, ")' id='checkbox").concat(layerID, "'\" checked/><label for=\"checkbox").concat(layerID, "\"></label></div>");
-      } else {
-        hidable = "hidable";
-        matchingStyles = "<div class='thumbnailContainer textPreview alignVerticalCenter'><div class=\"alignHorizontalCenter secondaryText\"> No matching styles</div> </div>";
-        styleNameDiv = "<div class='rowAuto primaryBoldText itemText' id='styleName".concat(layerID, "'>&nbsp;</div>");
-        checkbox = "<div class=\"selectRoundCheckbox notVisible\"><input type=\"checkbox\" onchange='onCheckChange(".concat(JSON.stringify(artboard), ",").concat(i, ")' id='checkbox").concat(layerID, "'\" checked/><label for=\"checkbox").concat(layerID, "\"></label></div>");
-        globalAssignLayers--;
-      }
-
-      inner += "<div class='verticalLayout listItem ".concat(hidable, "'>              <div class='rowAuto listItemHead'></div>                  <div class=\"rowAuto listItemBg\">                    <div class='horizontalLayout'>                      <div class='colAuto'>                        <div class='verticalLayout'>                          \n                          <div class='rowAvailable alignFullCenter'>                            \n                              ").concat(checkbox, "\n                              \n                          </div>                        </div>                      </div>\n                      <div class='colAvailable'>                        <div class='verticalLayout'>                          <div class='rowAuto'>\n                            <div class='horizontalLayout'>\n                              <div class='colAvailable horizontalLayout primaryText itemText'>\n                                <span>").concat(unstyledTextLayers[i].name, "</span>\n                                <div class='colAuto infoIcon tooltip'>\n                                  <svg width=\"14px\" height=\"14px\" viewBox=\"0 0 14 14\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n                                      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\n                                          <g id=\"Artboard\" transform=\"translate(-873.000000, -356.000000)\" fill-rule=\"nonzero\">\n                                              <path d=\"M880,356 C876.134133,356 873,359.134133 873,363 C873,366.865867 876.134133,370 880,370 C883.865867,370 887,366.865867 887,363 C887,359.134133 883.865867,356 880,356 Z M879.191111,366.021511 L879.191111,362.817067 C879.191111,362.37033 879.553263,362.008178 880,362.008178 C880.446737,362.008178 880.808889,362.37033 880.808889,362.817067 L880.808889,366.021511 C880.808889,366.468248 880.446737,366.8304 880,366.8304 C879.553263,366.8304 879.191111,366.468248 879.191111,366.021511 L879.191111,366.021511 Z M880,361.125556 C879.606773,361.125556 879.252265,360.888681 879.101784,360.525387 C878.951302,360.162092 879.034481,359.743922 879.312535,359.465868 C879.590589,359.187815 880.008759,359.104636 880.372053,359.255117 C880.735348,359.405599 880.972222,359.760106 880.972222,360.153333 C880.972222,360.690277 880.536944,361.125556 880,361.125556 Z\" id=\"Shape\"></path>\n                                          </g>\n                                      </g>\n                                  </svg>\n                                  <div class=\"tooltipText\">\n                                    <span>\n                                      ").concat(unstyledTextLayers[i].fontName, " - ").concat(unstyledTextLayers[i].fontSize, "\n                                      <br/>\n                                      ").concat(unstyledTextLayers[i].color, "\n                                    </span>\n                                  </div>\n                                </div>\n                              </div>                            </div>\n                          </div>\n                          <div class='rowAuto'>                             <div class='thumbnailContainer textPreview'>                              <div class=\"thumbnail ").concat(contrastModeOnLayer, " ").concat(isSmall, "\"  id='thumb").concat(layerID, "' style='background-image:url(\"").concat(unstyledTextLayers[i].thumbnail, "\")'></div>                            </div>                          </div>                        </div>                      </div>\n                      <div class='colAvailable'>                        <div class='verticalLayout'>                          ").concat(styleNameDiv, "\n                          <div class='rowAuto'>                             ").concat(matchingStyles, "\n                          </div>                        </div>                      </div>                      \n                    </div>                  </div>                  <div class='rowAuto listItemFoot'></div>                </div>");
-      layerID++;
-    }
-
-    artboardID++;
-  }
-
-  var btnAssign = document.getElementById('btnAssign');
-  btnAssign.innerHTML = "Assign " + globalAssignLayers + " style";
-  if (globalAssignLayers > 1) btnAssign.innerHTML = "Assign " + globalAssignLayers + " styles";
-  if (globalAssignLayers == 0) btnAssign.innerHTML = "No styles selected";
-  btnAssign.disabled = !(globalAssignLayers > 0);
-  document.getElementById('resultsTitle').innerHTML = "We found " + totalLayers + " unstyled text layers in " + Object.keys(byArtb).length + " artboards, and " + globalAssignLayers + " styles that match with them.";
-
-  if (globalAssignLayers > 0) {
-    var listOfStyles = document.getElementById('listOfStyles');
-    listOfStyles.innerHTML = inner;
-    listOfStyles.className = "movingYFadeInitialState movingYFadeIn";
-    document.getElementById('resultsTitle').className = "colAvailable rightPanelPadding secondaryText movingYFadeInitialState movingYFadeIn";
-  } else {
-    document.getElementById('emptyStateMessage').innerHTML = "We didn't find any style that matches with your unstyled layers. Want to try again changing your matching criteria?";
-    document.getElementById('btnEmptyState').className = "notDisplayed";
-    document.getElementById('emptyState').className = "emptyState fadeIn";
-  }
-};
-
 window.createTextWithClass = function (text, classname, id) {
   var span = document.createElement('span');
   span.className = classname;
@@ -269,7 +201,8 @@ window.createSvgWithClass = function (pathData, width, height, transform) {
   return svg;
 };
 
-window.DrawElements2 = function (byArtb, totalLayers, layersWithNoMatches) {
+window.DrawElements = function (byArtb, totalLayers, layersWithNoMatches) {
+  document.getElementById('listOfStyles').innerHTML = "";
   globalUnstyledLayers = byArtb;
   globalTotalLayers = totalLayers;
   globalAssignLayers = 0;
@@ -281,23 +214,29 @@ window.DrawElements2 = function (byArtb, totalLayers, layersWithNoMatches) {
 
   for (var artboard in byArtb) {
     var unstyledTextLayers = byArtb[artboard];
-    if (layerID == 0) frag.appendChild(createTextWithClass(byArtb[artboard][0].artboardName, 'primaryBigText'));else frag.appendChild(createTextWithClass(byArtb[artboard][0].artboardName, 'primaryBigText separeHeader'));
+    var artboardDiv = document.createElement("div");
+    if (layerID > 0) artboardDiv.className = "separeHeader";
+    artboardDiv.appendChild(createTextWithClass(byArtb[artboard][0].artboardName, 'primaryBigText'));
+    frag.appendChild(artboardDiv);
 
     var _loop = function _loop() {
+      var argArtboard = artboard;
+      var argIndex = i;
+      var argLayerID = layerID;
       globalAssignLayers++;
       styleNameDiv = document.createElement("div");
       styleNameDiv.className = "rowAuto";
       checkbox = document.createElement("div");
       checkbox.className = "colAuto selectRoundCheckbox";
+      checkbox.addEventListener("change", function () {
+        onCheckChange(argArtboard, argIndex);
+      });
       prevButton = document.createElement("button");
       prevButton.className = "btnThumbnailNavigationLeft btnArrow";
       prevButton.appendChild(createSvgWithClass("M15.7303757,6.64230705 C16.0898748,6.2666066 16.0898748,5.6574758 15.7303757,5.28177534 C15.3708766,4.90607489 14.7880134,4.90607489 14.4285143,5.28177534 L8,12 L14.4285143,18.7182247 C14.7880134,19.0939251 15.3708766,19.0939251 15.7303757,18.7182247 C16.0898748,18.3425242 16.0898748,17.7333934 15.7303757,17.3576929 L10.6037228,12 L15.7303757,6.64230705 Z", 8, 14, "translate(-7, -5)"));
       nextButton = document.createElement("button");
       nextButton.className = "btnThumbnailNavigationRight btnArrow";
       nextButton.appendChild(createSvgWithClass("M15.7303757,6.64230705 C16.0898748,6.2666066 16.0898748,5.6574758 15.7303757,5.28177534 C15.3708766,4.90607489 14.7880134,4.90607489 14.4285143,5.28177534 L8,12 L14.4285143,18.7182247 C14.7880134,19.0939251 15.3708766,19.0939251 15.7303757,18.7182247 C16.0898748,18.3425242 16.0898748,17.7333934 15.7303757,17.3576929 L10.6037228,12 L15.7303757,6.64230705 Z", 8, 14, "translate(16, -5) scale(-1,1)"));
-      var argArtboard = artboard;
-      var argIndex = i;
-      var argLayerID = layerID;
       prevButton.addEventListener("click", function () {
         loadPreviousStyle(argArtboard, argIndex, argLayerID);
       });
@@ -395,48 +334,7 @@ window.DrawElements2 = function (byArtb, totalLayers, layersWithNoMatches) {
       itemRow.appendChild(textLayer);
       itemRow.appendChild(relatedStylesContainer); //ENDOF RELATED STYLES CONTENT
 
-      frag.appendChild(itemRow); // inner += `<div class='verticalLayout listItem ${hidable}'>\
-      //         <div class='rowAuto listItemHead'></div>\
-      //             <div class="rowAuto listItemBg">\
-      //               <div class='horizontalLayout'>\
-      //                
-      //                 <div class='colAvailable'>\
-      //                   <div class='verticalLayout'>\
-      //                     <div class='rowAuto'>
-      //                       <div class='horizontalLayout'>
-      //                         <div class='colAvailable horizontalLayout primaryText itemText'>
-      //                           <span>${unstyledTextLayers[i].name}</span>
-      //                           <div class='colAuto infoIcon tooltip'>
-      //                             <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-      //                                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-      //                                     <g id="Artboard" transform="translate(-873.000000, -356.000000)" fill-rule="nonzero">
-      //                                         <path d="M880,356 C876.134133,356 873,359.134133 873,363 C873,366.865867 876.134133,370 880,370 C883.865867,370 887,366.865867 887,363 C887,359.134133 883.865867,356 880,356 Z M879.191111,366.021511 L879.191111,362.817067 C879.191111,362.37033 879.553263,362.008178 880,362.008178 C880.446737,362.008178 880.808889,362.37033 880.808889,362.817067 L880.808889,366.021511 C880.808889,366.468248 880.446737,366.8304 880,366.8304 C879.553263,366.8304 879.191111,366.468248 879.191111,366.021511 L879.191111,366.021511 Z M880,361.125556 C879.606773,361.125556 879.252265,360.888681 879.101784,360.525387 C878.951302,360.162092 879.034481,359.743922 879.312535,359.465868 C879.590589,359.187815 880.008759,359.104636 880.372053,359.255117 C880.735348,359.405599 880.972222,359.760106 880.972222,360.153333 C880.972222,360.690277 880.536944,361.125556 880,361.125556 Z" id="Shape"></path>
-      //                                     </g>
-      //                                 </g>
-      //                             </svg>
-      //                             <div class="tooltipText">
-      //                               <span>
-      //                                 ${unstyledTextLayers[i].fontName} - ${unstyledTextLayers[i].fontSize}
-      //                                 <br/>
-      //                                 ${unstyledTextLayers[i].color}
-      //                               </span>
-      //                             </div>
-      //                           </div>
-      //                         </div>\
-      //                       </div>
-      //                     </div>
-      //                     <div class='rowAuto'> \
-      //                       <div class='thumbnailContainer textPreview'>\
-      //                         <div class="thumbnail ${contrastModeOnLayer} ${isSmall}"  id='thumb${layerID}' style='background-image:url("${unstyledTextLayers[i].thumbnail}")'></div>\
-      //                       </div>\
-      //                     </div>\
-      //                   </div>\
-      //                 </div>\
-      //               </div>\
-      //             </div>\
-      //             <div class='rowAuto listItemFoot'></div>\
-      //           </div>`;
-
+      frag.appendChild(itemRow);
       layerID++;
     };
 
@@ -530,8 +428,9 @@ window.DrawStyleThumbnail = function (thumbnail, markupLayerID) {
 window.loadPreviousStyle = function (artboard, index, layerID) {
   var newThumbnailIndex = globalUnstyledLayers[artboard][index].styleLoaded - 1;
   if (newThumbnailIndex >= 0) globalUnstyledLayers[artboard][index].styleLoaded = newThumbnailIndex;else globalUnstyledLayers[artboard][index].styleLoaded = globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles.length - 1;
-  document.getElementById("styleName" + layerID).innerHTML = "<span>".concat(globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].styleName, "</span>");
-  document.getElementById("styleTooltip" + layerID).innerHTML = "\n                                  ".concat(globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].fontName, " - ").concat(globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].fontSize, "\n                                  <br/>\n                                  ").concat(globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].color);
+  document.getElementById("styleName" + layerID).innerHTML = globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].styleName;
+  document.getElementById("styleTooltipAttributes" + layerID).innerHTML = globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].fontName + " - " + globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].fontSize;
+  document.getElementById("styleTooltipColor" + layerID).innerHTML = globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].color;
   window.postMessage('GetThumbnail', globalUnstyledLayers[artboard][index].layerID, globalUnstyledLayers[artboard][index].styleLoaded, "similarThumb" + layerID);
   var contrastModeOnStyle = "";
   if (globalUnstyledLayers[artboard][index].matchingStyles.matchingStyles[globalUnstyledLayers[artboard][index].styleLoaded].contrastBackground) contrastModeOnStyle = "contrastMode";

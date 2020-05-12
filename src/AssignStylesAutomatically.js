@@ -184,30 +184,13 @@ export function scanTextLayers(context) {
 
   webContents.on('GetMeAStyle', (checkSameFont, checkSameWeight, includeSimilarWeights, checkSameSize, includeSimilarSize, checkSameColor, includeSimilarColor, checkSameParagraphSpacing, checkSameLineHeight, checkSameAlignment, checkSameCharacterSpacing, checkedActiveLibraries) => {
 
-    // console.log("checkSameFont:"+checkSameFont);
-    // console.log("checkSameWeight:"+checkSameWeight);
-    // console.log("includeSimilarWeights:"+includeSimilarWeights); 
-    // console.log("checkSameSize:"+checkSameSize);
-    // console.log("includeSimilarSize:"+includeSimilarSize); 
-    // console.log("checkSameColor:"+checkSameColor);
-    // console.log("includeSimilarColor:"+includeSimilarColor); 
-    // console.log("checkSameParagraphSpacing:"+checkSameParagraphSpacing);
-    // console.log("checkSameLineHeight:"+checkSameLineHeight);
-    // console.log("checkSameAlignment:"+checkSameAlignment); 
-    // console.log("checkSameCharacterSpacing:"+checkSameCharacterSpacing);
 
-    //console.time('GetMeAStyle');
-
-    var countHowManySaves = 0;
+    globalTextLayers = [];
+    var unstyledTextLayers = [];
+    var message = "Looking for matching styles";
 
     var textStyles = StylesHelpers.getDefinedTextStyles(context, checkedActiveLibraries);
     var allTextLayers = StylesHelpers.getAllTextLayers(context, true, globalTriggeredAction);
-    globalTextLayers = [];
-    //console.log("All layers received");
-    var thumbnailsgenerated = 0;
-    var unstyledTextLayers = [];
-    var stylesArranged = StylesHelpers.getStylesArranged(textStyles, context, checkSameFont, checkSameWeight, includeSimilarWeights, checkSameSize, includeSimilarSize, checkSameColor, includeSimilarColor, checkSameParagraphSpacing, checkSameLineHeight, checkSameAlignment, checkSameCharacterSpacing);
-    var message = "";
 
     if ((allTextLayers.length > 50) && (textStyles.length > 20)) message = "Looking for matching styles. This may take a minute...";
     if (textStyles.length > 50) message = "Looking for matching styles. This may take a minute...";
@@ -216,8 +199,10 @@ export function scanTextLayers(context) {
 
     webContents.executeJavaScript(`ShowProgress(${JSON.stringify(message)})`).catch(console.error);
 
+    var stylesArranged = StylesHelpers.getStylesArranged(textStyles, context, checkSameFont, checkSameWeight, includeSimilarWeights, checkSameSize, includeSimilarSize, checkSameColor, includeSimilarColor, checkSameParagraphSpacing, checkSameLineHeight, checkSameAlignment, checkSameCharacterSpacing);
+
     var totalmatchingstyles = 0;
-    console.log("Total text layers:" + allTextLayers.length)
+    // console.log("Total text layers:" + allTextLayers.length)
     for (var i = 0; i < allTextLayers.length; i++) {
 
       var matchingStylesWithArranged = StylesHelpers.findMatchInArranged(allTextLayers[i], stylesArranged, checkSameFont, checkSameWeight, includeSimilarWeights, checkSameSize, includeSimilarSize, checkSameColor, includeSimilarColor, checkSameParagraphSpacing, checkSameLineHeight, checkSameAlignment, checkSameCharacterSpacing);
@@ -309,8 +294,8 @@ export function scanTextLayers(context) {
     webContents.executeJavaScript(`HideProgress(${targetProgress})`).catch(console.error);
 
     var layersWithNoMatches = (allTextLayers.length - unstyledTextLayers.length);
-    console.log("Text layers to style: " + unstyledTextLayers.length + ". Total matching styles: " + totalmatchingstyles+ ". Total layers with no matches styles: " + (allTextLayers.length - unstyledTextLayers.length));
-    webContents.executeJavaScript(`DrawElements2(${JSON.stringify(byArtb)},${unstyledTextLayers.length}, ${layersWithNoMatches})`).catch(console.error);
+    // console.log("Text layers to style: " + unstyledTextLayers.length + ". Total matching styles: " + totalmatchingstyles+ ". Total layers with no matches styles: " + (allTextLayers.length - unstyledTextLayers.length));
+    webContents.executeJavaScript(`DrawElements(${JSON.stringify(byArtb)},${unstyledTextLayers.length}, ${layersWithNoMatches})`).catch(console.error);
   });
 
 

@@ -4582,7 +4582,7 @@ module.exports.sendToWebview = function sendToWebview(identifier, evalString) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "file://" + String(context.scriptPath).split(".sketchplugin/Contents/Sketch")[0] + ".sketchplugin/Contents/Resources/_webpack_resources/7b3ab4291fae63d2b2bda4e3ca8f7349.html";
+module.exports = "file://" + String(context.scriptPath).split(".sketchplugin/Contents/Sketch")[0] + ".sketchplugin/Contents/Resources/_webpack_resources/edad8df88bd0ed5915c9a6c99e805bd6.html";
 
 /***/ }),
 
@@ -4593,7 +4593,7 @@ module.exports = "file://" + String(context.scriptPath).split(".sketchplugin/Con
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "file://" + String(context.scriptPath).split(".sketchplugin/Contents/Sketch")[0] + ".sketchplugin/Contents/Resources/_webpack_resources/3433f6b2b1641f6476dc16f6239fdb57.html";
+module.exports = "file://" + String(context.scriptPath).split(".sketchplugin/Contents/Sketch")[0] + ".sketchplugin/Contents/Resources/_webpack_resources/adb0b2e7fac4c421f64bf3547a67aa6e.html";
 
 /***/ }),
 
@@ -4895,34 +4895,18 @@ function scanTextLayers(context) {
     webContents.executeJavaScript("DrawStyleThumbnail(".concat(JSON.stringify(thumbnail), ", ").concat(JSON.stringify(markupLayerID), ")")).catch(console.error);
   });
   webContents.on('GetMeAStyle', function (checkSameFont, checkSameWeight, includeSimilarWeights, checkSameSize, includeSimilarSize, checkSameColor, includeSimilarColor, checkSameParagraphSpacing, checkSameLineHeight, checkSameAlignment, checkSameCharacterSpacing, checkedActiveLibraries) {
-    // console.log("checkSameFont:"+checkSameFont);
-    // console.log("checkSameWeight:"+checkSameWeight);
-    // console.log("includeSimilarWeights:"+includeSimilarWeights); 
-    // console.log("checkSameSize:"+checkSameSize);
-    // console.log("includeSimilarSize:"+includeSimilarSize); 
-    // console.log("checkSameColor:"+checkSameColor);
-    // console.log("includeSimilarColor:"+includeSimilarColor); 
-    // console.log("checkSameParagraphSpacing:"+checkSameParagraphSpacing);
-    // console.log("checkSameLineHeight:"+checkSameLineHeight);
-    // console.log("checkSameAlignment:"+checkSameAlignment); 
-    // console.log("checkSameCharacterSpacing:"+checkSameCharacterSpacing);
-    //console.time('GetMeAStyle');
-    var countHowManySaves = 0;
+    globalTextLayers = [];
+    var unstyledTextLayers = [];
+    var message = "Looking for matching styles";
     var textStyles = StylesHelpers.getDefinedTextStyles(context, checkedActiveLibraries);
     var allTextLayers = StylesHelpers.getAllTextLayers(context, true, globalTriggeredAction);
-    globalTextLayers = []; //console.log("All layers received");
-
-    var thumbnailsgenerated = 0;
-    var unstyledTextLayers = [];
-    var stylesArranged = StylesHelpers.getStylesArranged(textStyles, context, checkSameFont, checkSameWeight, includeSimilarWeights, checkSameSize, includeSimilarSize, checkSameColor, includeSimilarColor, checkSameParagraphSpacing, checkSameLineHeight, checkSameAlignment, checkSameCharacterSpacing);
-    var message = "";
     if (allTextLayers.length > 50 && textStyles.length > 20) message = "Looking for matching styles. This may take a minute...";
     if (textStyles.length > 50) message = "Looking for matching styles. This may take a minute...";
     if (allTextLayers.length > 100 && textStyles.length > 50) message = "Wow! " + allTextLayers.length + " unstyled layers and " + textStyles.length + " styles! We're pairing texts and styles, but this may take some minutes. You may better go get some coffee?";
     if (textStyles.length > 100) message = "Wow! " + allTextLayers.length + " unstyled layers and " + textStyles.length + " styles!!! We're pairing texts and styles, but this may take some minutes. You may better go get some coffee?";
     webContents.executeJavaScript("ShowProgress(".concat(JSON.stringify(message), ")")).catch(console.error);
-    var totalmatchingstyles = 0;
-    console.log("Total text layers:" + allTextLayers.length);
+    var stylesArranged = StylesHelpers.getStylesArranged(textStyles, context, checkSameFont, checkSameWeight, includeSimilarWeights, checkSameSize, includeSimilarSize, checkSameColor, includeSimilarColor, checkSameParagraphSpacing, checkSameLineHeight, checkSameAlignment, checkSameCharacterSpacing);
+    var totalmatchingstyles = 0; // console.log("Total text layers:" + allTextLayers.length)
 
     for (var i = 0; i < allTextLayers.length; i++) {
       var matchingStylesWithArranged = StylesHelpers.findMatchInArranged(allTextLayers[i], stylesArranged, checkSameFont, checkSameWeight, includeSimilarWeights, checkSameSize, includeSimilarSize, checkSameColor, includeSimilarColor, checkSameParagraphSpacing, checkSameLineHeight, checkSameAlignment, checkSameCharacterSpacing);
@@ -4996,9 +4980,9 @@ function scanTextLayers(context) {
     globalByArtb = byArtb;
     var targetProgress = 100;
     webContents.executeJavaScript("HideProgress(".concat(targetProgress, ")")).catch(console.error);
-    var layersWithNoMatches = allTextLayers.length - unstyledTextLayers.length;
-    console.log("Text layers to style: " + unstyledTextLayers.length + ". Total matching styles: " + totalmatchingstyles + ". Total layers with no matches styles: " + (allTextLayers.length - unstyledTextLayers.length));
-    webContents.executeJavaScript("DrawElements2(".concat(JSON.stringify(byArtb), ",").concat(unstyledTextLayers.length, ", ").concat(layersWithNoMatches, ")")).catch(console.error);
+    var layersWithNoMatches = allTextLayers.length - unstyledTextLayers.length; // console.log("Text layers to style: " + unstyledTextLayers.length + ". Total matching styles: " + totalmatchingstyles+ ". Total layers with no matches styles: " + (allTextLayers.length - unstyledTextLayers.length));
+
+    webContents.executeJavaScript("DrawElements(".concat(JSON.stringify(byArtb), ",").concat(unstyledTextLayers.length, ", ").concat(layersWithNoMatches, ")")).catch(console.error);
   });
 
   var groupBy = function groupBy(key) {
