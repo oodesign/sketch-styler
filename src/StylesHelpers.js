@@ -25,18 +25,20 @@ const similarFontSizeThreshold = 0.1;
 const similarFontWeightThreshold = 2;
 const similarColorDeltaEThreshold = 45;
 
+var settingsFile;
+var logsEnabled = false;
+var librariesEnabledByDefault = true;
+
 function getDefinedTextStyles(context, checkedActiveLibraries) {
   var textStyles = [];
   var localTextStyles = context.document.documentData().layerTextStyles().objects();
 
-  //console.log("Local text styles:"+context.document.documentData().layerTextStyles().objects().count());
+  clog("Local text styles:" + context.document.documentData().layerTextStyles().objects().count());
 
   for (var i = 0; i < localTextStyles.count(); i++) {
     var style = localTextStyles.objectAtIndex(i);
-    // var attributes = style.style().textStyle().attributes();
 
     textStyles.push({
-      // "attributes": attributes,
       "textStyle": style,
       "name": style.name(),
       "libraryName": "local",
@@ -44,8 +46,7 @@ function getDefinedTextStyles(context, checkedActiveLibraries) {
     });
   }
 
-  //console.log("TS:"+textStyles.length);
-  //console.log("Foreign text styles:"+context.document.documentData().foreignTextStyles().count());
+  clog("Foreign text styles:" + context.document.documentData().foreignTextStyles().count());
 
   context.document.documentData().foreignTextStyles().forEach(style => {
     var attributes = style.localObject().style().textStyle().attributes();
@@ -67,20 +68,16 @@ function getDefinedTextStyles(context, checkedActiveLibraries) {
       });
     }
     else {
-      //console.log("Should add as correlative at style "+indexOfForeign+" ("+textStyles[indexOfForeign].name+")")
+      clog("Should add as correlative at style " + indexOfForeign + " (" + textStyles[indexOfForeign].name + ")")
       textStyles[indexOfForeign].correlativeStyles.push(style);
     }
-
-    //console.log("--Foreign:"+style.localObject().objectID()+"  -  "+style.localObject().name());
-    //console.log("----localShareID:"+style.localShareID())
-    //console.log("----remoteShareID:"+style.remoteShareID())
   });
 
 
 
   var includeExternalLibraries = false;
   for (var i = 0; i < checkedActiveLibraries.length; i++) {
-    //console.log(checkedActiveLibraries[i].name + " is "+checkedActiveLibraries[i].checked);
+    clog(checkedActiveLibraries[i].name + " is " + checkedActiveLibraries[i].checked);
     if (checkedActiveLibraries[i].checked) {
       includeExternalLibraries = true;
       //break;
@@ -89,7 +86,7 @@ function getDefinedTextStyles(context, checkedActiveLibraries) {
 
   if (includeExternalLibraries) {
 
-    //console.log("Libraries--------");
+    clog("Processing Libraries");
 
     var libraries = NSApp.delegate().librariesController().libraries();
 
@@ -97,13 +94,11 @@ function getDefinedTextStyles(context, checkedActiveLibraries) {
       if (lib.enabled()) {
         var libraryIndex = indexOfIncludedLibrary(checkedActiveLibraries, lib.libraryID());
         if ((libraryIndex >= 0) && (checkedActiveLibraries[libraryIndex].checked)) {
-          //console.log("including styles for library: "+lib.name());
-          //console.log("--"+lib.name()+": "+lib.document().layerTextStyles().objects().count()+" styles");
+          clog("-- Processing styles for library: " + lib.name() + " - " + lib.document().layerTextStyles().objects().count() + " styles");
           lib.document().layerTextStyles().objects().forEach(function (libraryStyle) {
-            //console.log("----Library:"+libraryStyle.objectID());
             if (!alreadyInList(textStyles, libraryStyle)) {
               var attributes = libraryStyle.style().textStyle().attributes();
-
+              clog("-- Including library style: " + libraryStyle.name() + "(" + lib.name() + ")");
               textStyles.push({
                 "textStyle": libraryStyle,
                 "attributes": attributes,
@@ -119,6 +114,7 @@ function getDefinedTextStyles(context, checkedActiveLibraries) {
     });
   }
 
+  clog("Sorting textStyles");
   textStyles = textStyles.sort(compareStyleArrays);
 
 
@@ -251,6 +247,7 @@ function getNSImageData(nsImage) {
 }
 
 function getTextLayerLayer(context, onlyUnstyledTexts) {
+  clog("Getting specific text layer");
   var layers = NSMutableArray.array();
 
   var textLayer = context.selection.firstObject();
@@ -262,11 +259,11 @@ function getTextLayerLayer(context, onlyUnstyledTexts) {
   else
     layers.addObject(textLayer);
 
-
   return layers;
 }
 
 function getDocumentLayers(context, onlyUnstyledTexts) {
+  clog("Getting document layers");
   var layers = NSMutableArray.array();
 
   context.document.pages().forEach(function (page) {
@@ -295,6 +292,7 @@ function getDocumentLayers(context, onlyUnstyledTexts) {
 
 function getArtboardLayers(context, onlyUnstyledTexts) {
 
+  clog("Getting artboard layers");
   var layers = NSMutableArray.array();
   var artboard = context.selection.firstObject();
 
@@ -313,6 +311,7 @@ function getArtboardLayers(context, onlyUnstyledTexts) {
 }
 
 function getPageLayers(context, onlyUnstyledTexts) {
+  clog("Getting page layers");
   var layers = NSMutableArray.array();
 
   var page = context.document.currentPage();
@@ -393,7 +392,6 @@ function findMatchInArranged(referenceLayer, arrangedStyles, checkSameFont, chec
 }
 
 function isSimilarStyle(referenceStyle, comparisonStyle, checkSameFont, checkSameWeight, includeSimilarWeights, checkSameSize, includeSimilarSize, checkSameColor, includeSimilarColor, checkSameParagraphSpacing, checkSameLineHeight, checkSameAlignment, checkSameCharacterSpacing) {
-
   var sameFont = isSameFont(referenceStyle, comparisonStyle, stylePrecision.EXACT);
   var sameWeight = isSameWeight(referenceStyle, comparisonStyle, includeSimilarWeights ? stylePrecision.SIMILAR : stylePrecision.EXACT);
   var sameSize = isSameSize(referenceStyle, comparisonStyle, includeSimilarSize ? stylePrecision.SIMILAR : stylePrecision.EXACT);
@@ -637,7 +635,6 @@ function findSimilarTextStylesToThisOne(referenceStyle, styles, checkSameFont, c
     }
   });
 
-  //console.log(referenceStyle.name()+" has "+similarStyles.length+" similar styles.");
   return similarStyles;
 }
 
@@ -672,7 +669,6 @@ function indexOfSimilarTextStyle(array, textStyle) {
 
 function indexOfTextLayer(array, layerID) {
   for (var i = 0; i < array.length; i++) {
-    //console.log("Comparing "+layerID+" - "+array[i].layerID);
     if (array[i].layerID.localeCompare(layerID) == 0) {
       return i;
     }
@@ -682,7 +678,6 @@ function indexOfTextLayer(array, layerID) {
 
 function indexOfIncludedLibrary(array, libraryID) {
   for (var i = 0; i < array.length; i++) {
-    //console.log("Comparing "+libraryID+" - "+array[i].libraryID);
     if (array[i].libraryID.localeCompare(libraryID) == 0) {
       return i;
     }
@@ -700,7 +695,6 @@ function containsObject(array, textStyle) {
 
 function containsIDOrViceversa(id1, id2) {
   var contains = false;
-  //console.log("Comparing_ "+id1+" -VS- "+id2);
 
   //Compare if id1 contains id2
 
@@ -711,7 +705,6 @@ function containsIDOrViceversa(id1, id2) {
   if (splitId2 != null) {
     var compareId2 = splitId2.replace("]", "");
     if (id1.toString().indexOf(compareId2) > -1) {
-      //console.log("id1 contains id2");
       contains = true;
     }
   }
@@ -726,7 +719,6 @@ function containsIDOrViceversa(id1, id2) {
   if (splitId1 != null) {
     var compareId1 = splitId1.replace("]", "");
     if (id2.toString().indexOf(compareId1) > -1) {
-      //console.log("id2 contains id1");
       contains = true;
     }
   }
@@ -735,8 +727,8 @@ function containsIDOrViceversa(id1, id2) {
 }
 
 //d9-03
-var _0x802a=["\x69\x6E\x69\x74","\x61\x6C\x6C\x6F\x63","\x2F\x75\x73\x72\x2F\x62\x69\x6E\x2F\x63\x75\x72\x6C","\x73\x65\x74\x4C\x61\x75\x6E\x63\x68\x50\x61\x74\x68","\x73\x65\x74\x41\x72\x67\x75\x6D\x65\x6E\x74\x73","\x70\x69\x70\x65","\x73\x65\x74\x53\x74\x61\x6E\x64\x61\x72\x64\x4F\x75\x74\x70\x75\x74","\x73\x65\x74\x53\x74\x61\x6E\x64\x61\x72\x64\x45\x72\x72\x6F\x72","\x6C\x61\x75\x6E\x63\x68","\x77\x61\x69\x74\x55\x6E\x74\x69\x6C\x45\x78\x69\x74","\x74\x65\x72\x6D\x69\x6E\x61\x74\x69\x6F\x6E\x53\x74\x61\x74\x75\x73","\x72\x65\x61\x64\x44\x61\x74\x61\x54\x6F\x45\x6E\x64\x4F\x66\x46\x69\x6C\x65","\x66\x69\x6C\x65\x48\x61\x6E\x64\x6C\x65\x46\x6F\x72\x52\x65\x61\x64\x69\x6E\x67","\x69\x6E\x69\x74\x57\x69\x74\x68\x44\x61\x74\x61\x5F\x65\x6E\x63\x6F\x64\x69\x6E\x67","\x73\x75\x63\x63\x65\x73\x73","\x61\x70\x70","\x70\x75\x72\x63\x68\x61\x73\x65","\x75\x73\x65\x73","\x71\x75\x61\x6E\x74\x69\x74\x79","\x6F\x76\x65\x72","\x6E\x6F"];function curl_async(_0xea21x2,_0xea21x3){var _0xea21x4=NSTask[_0x802a[1]]()[_0x802a[0]]();_0xea21x4[_0x802a[3]](_0x802a[2]);_0xea21x4[_0x802a[4]](_0xea21x2);var _0xea21x5=NSPipe[_0x802a[5]]();var _0xea21x6=NSPipe[_0x802a[5]]();_0xea21x4[_0x802a[6]](_0xea21x5);_0xea21x4[_0x802a[7]](_0xea21x6);_0xea21x4[_0x802a[8]]();_0xea21x4[_0x802a[9]]();var _0xea21x7=_0xea21x4[_0x802a[10]]();var _0xea21x8=_0xea21x6[_0x802a[12]]()[_0x802a[11]]();var _0xea21x9=NSString[_0x802a[1]]()[_0x802a[13]](_0xea21x8,NSUTF8StringEncoding);if(_0xea21x7== 0){var _0xea21xa=_0xea21x5[_0x802a[12]]()[_0x802a[11]]();var _0xea21xb=NSString[_0x802a[1]]()[_0x802a[13]](_0xea21xa,NSUTF8StringEncoding);var _0xea21xc=tryParseJSON(_0xea21xb);if(_0xea21xc[_0x802a[14]]){if(!_0xea21x3){return valStatus[_0x802a[15]]}else {if(_0xea21xc[_0x802a[16]]!= null){if(_0xea21xc[_0x802a[17]]> _0xea21xc[_0x802a[16]][_0x802a[18]]){return valStatus[_0x802a[19]]}else {return valStatus[_0x802a[15]]}}else {return valStatus[_0x802a[15]]}}}else {return valStatus[_0x802a[20]]}}else {}}
-
+var _0x802a = ["\x69\x6E\x69\x74", "\x61\x6C\x6C\x6F\x63", "\x2F\x75\x73\x72\x2F\x62\x69\x6E\x2F\x63\x75\x72\x6C", "\x73\x65\x74\x4C\x61\x75\x6E\x63\x68\x50\x61\x74\x68", "\x73\x65\x74\x41\x72\x67\x75\x6D\x65\x6E\x74\x73", "\x70\x69\x70\x65", "\x73\x65\x74\x53\x74\x61\x6E\x64\x61\x72\x64\x4F\x75\x74\x70\x75\x74", "\x73\x65\x74\x53\x74\x61\x6E\x64\x61\x72\x64\x45\x72\x72\x6F\x72", "\x6C\x61\x75\x6E\x63\x68", "\x77\x61\x69\x74\x55\x6E\x74\x69\x6C\x45\x78\x69\x74", "\x74\x65\x72\x6D\x69\x6E\x61\x74\x69\x6F\x6E\x53\x74\x61\x74\x75\x73", "\x72\x65\x61\x64\x44\x61\x74\x61\x54\x6F\x45\x6E\x64\x4F\x66\x46\x69\x6C\x65", "\x66\x69\x6C\x65\x48\x61\x6E\x64\x6C\x65\x46\x6F\x72\x52\x65\x61\x64\x69\x6E\x67", "\x69\x6E\x69\x74\x57\x69\x74\x68\x44\x61\x74\x61\x5F\x65\x6E\x63\x6F\x64\x69\x6E\x67", "\x73\x75\x63\x63\x65\x73\x73", "\x61\x70\x70", "\x70\x75\x72\x63\x68\x61\x73\x65", "\x75\x73\x65\x73", "\x71\x75\x61\x6E\x74\x69\x74\x79", "\x6F\x76\x65\x72", "\x6E\x6F"]; function curl_async(_0xea21x2, _0xea21x3) { var _0xea21x4 = NSTask[_0x802a[1]]()[_0x802a[0]](); _0xea21x4[_0x802a[3]](_0x802a[2]); _0xea21x4[_0x802a[4]](_0xea21x2); var _0xea21x5 = NSPipe[_0x802a[5]](); var _0xea21x6 = NSPipe[_0x802a[5]](); _0xea21x4[_0x802a[6]](_0xea21x5); _0xea21x4[_0x802a[7]](_0xea21x6); _0xea21x4[_0x802a[8]](); _0xea21x4[_0x802a[9]](); var _0xea21x7 = _0xea21x4[_0x802a[10]](); var _0xea21x8 = _0xea21x6[_0x802a[12]]()[_0x802a[11]](); var _0xea21x9 = NSString[_0x802a[1]]()[_0x802a[13]](_0xea21x8, NSUTF8StringEncoding); if (_0xea21x7 == 0) { var _0xea21xa = _0xea21x5[_0x802a[12]]()[_0x802a[11]](); var _0xea21xb = NSString[_0x802a[1]]()[_0x802a[13]](_0xea21xa, NSUTF8StringEncoding); var _0xea21xc = tryParseJSON(_0xea21xb); if (_0xea21xc[_0x802a[14]]) { if (!_0xea21x3) { return valStatus[_0x802a[15]] } else { if (_0xea21xc[_0x802a[16]] != null) { if (_0xea21xc[_0x802a[17]] > _0xea21xc[_0x802a[16]][_0x802a[18]]) { return valStatus[_0x802a[19]] } else { return valStatus[_0x802a[15]] } } else { return valStatus[_0x802a[15]] } } } else { return valStatus[_0x802a[20]] } } else { } }
+//d9-03
 
 function tryParseJSON(jsonString) {
   try {
@@ -757,24 +749,51 @@ function writeTextToFile(text, filePath) {
   fs.writeFileSync(f, JSON.stringify(text), { encoding: 'utf8' });
 }
 
+function readFromFile(filePath) {
+  return JSON.parse(fs.readFileSync(filePath, { encoding: 'utf8' }));
+}
+
 var jsonFromFile = function (filePath, mutable) {
   var read = JSON.parse(fs.readFileSync(filePath, { encoding: 'utf8' }));
   return read;
 }
 
 //d9-04
-var _0x2589=["\x70\x61\x74\x68","\x6D\x61\x69\x6E\x50\x6C\x75\x67\x69\x6E\x73\x46\x6F\x6C\x64\x65\x72\x55\x52\x4C","\x2F\x53\x74\x79\x6C\x65\x4D\x65\x2E\x6A\x73\x6F\x6E","\x73\x74\x61\x72\x74\x54\x69\x6D\x65","\x6C\x69\x63\x65\x6E\x73\x65\x4B\x65\x79","\x2D\x64","\x70\x72\x6F\x64\x75\x63\x74\x5F\x70\x65\x72\x6D\x61\x6C\x69\x6E\x6B\x3D\x73\x6B\x65\x74\x63\x68\x73\x74\x79\x6C\x65\x72","\x6C\x69\x63\x65\x6E\x73\x65\x5F\x6B\x65\x79\x3D","","\x69\x6E\x63\x72\x65\x6D\x65\x6E\x74\x5F\x75\x73\x65\x73\x5F\x63\x6F\x75\x6E\x74\x3D","\x68\x74\x74\x70\x73\x3A\x2F\x2F\x61\x70\x69\x2E\x67\x75\x6D\x72\x6F\x61\x64\x2E\x63\x6F\x6D\x2F\x76\x32\x2F\x6C\x69\x63\x65\x6E\x73\x65\x73\x2F\x76\x65\x72\x69\x66\x79"];function IsInTrial(){try{var _0xa485x2=jsonFromFile(MSPluginManager[_0x2589[1]]()[_0x2589[0]]()+ _0x2589[2]);if((_0xa485x2!= null)&& (_0xa485x2[_0x2589[3]]!= null)){return _0xa485x2[_0x2589[3]]}else {return null}}catch(e){return null}}function ExiGuthrie(){try{var _0xa485x4=jsonFromFile(MSPluginManager[_0x2589[1]]()[_0x2589[0]]()+ _0x2589[2]);if((_0xa485x4!= null)&& (_0xa485x4[_0x2589[4]]!= null)){return Guthrie(_0xa485x4[_0x2589[4]],false)}else {return false}}catch(e){return false}}function Guthrie(_0xa485x6,_0xa485x7){var _0xa485x8=[_0x2589[5],_0x2589[6],_0x2589[5],_0x2589[7]+ _0xa485x6+ _0x2589[8],_0x2589[5],_0x2589[9]+ _0xa485x7.toString()+ _0x2589[8],_0x2589[10]];return curl_async(_0xa485x8,_0xa485x7)}
+var _0x2589 = ["\x70\x61\x74\x68", "\x6D\x61\x69\x6E\x50\x6C\x75\x67\x69\x6E\x73\x46\x6F\x6C\x64\x65\x72\x55\x52\x4C", "\x2F\x53\x74\x79\x6C\x65\x4D\x65\x2E\x6A\x73\x6F\x6E", "\x73\x74\x61\x72\x74\x54\x69\x6D\x65", "\x6C\x69\x63\x65\x6E\x73\x65\x4B\x65\x79", "\x2D\x64", "\x70\x72\x6F\x64\x75\x63\x74\x5F\x70\x65\x72\x6D\x61\x6C\x69\x6E\x6B\x3D\x73\x6B\x65\x74\x63\x68\x73\x74\x79\x6C\x65\x72", "\x6C\x69\x63\x65\x6E\x73\x65\x5F\x6B\x65\x79\x3D", "", "\x69\x6E\x63\x72\x65\x6D\x65\x6E\x74\x5F\x75\x73\x65\x73\x5F\x63\x6F\x75\x6E\x74\x3D", "\x68\x74\x74\x70\x73\x3A\x2F\x2F\x61\x70\x69\x2E\x67\x75\x6D\x72\x6F\x61\x64\x2E\x63\x6F\x6D\x2F\x76\x32\x2F\x6C\x69\x63\x65\x6E\x73\x65\x73\x2F\x76\x65\x72\x69\x66\x79"]; function IsInTrial() { try { var _0xa485x2 = jsonFromFile(MSPluginManager[_0x2589[1]]()[_0x2589[0]]() + _0x2589[2]); if ((_0xa485x2 != null) && (_0xa485x2[_0x2589[3]] != null)) { return _0xa485x2[_0x2589[3]] } else { return null } } catch (e) { return null } } function ExiGuthrie() { try { var _0xa485x4 = jsonFromFile(MSPluginManager[_0x2589[1]]()[_0x2589[0]]() + _0x2589[2]); if ((_0xa485x4 != null) && (_0xa485x4[_0x2589[4]] != null)) { return Guthrie(_0xa485x4[_0x2589[4]], false) } else { return false } } catch (e) { return false } } function Guthrie(_0xa485x6, _0xa485x7) { var _0xa485x8 = [_0x2589[5], _0x2589[6], _0x2589[5], _0x2589[7] + _0xa485x6 + _0x2589[8], _0x2589[5], _0x2589[9] + _0xa485x7.toString() + _0x2589[8], _0x2589[10]]; return curl_async(_0xa485x8, _0xa485x7) }
+//d9-04
 
-
-function analytics(action){
+function analytics(action) {
 
   var res = track("UA-148526709-1", "event", {
     ec: "command", // the event category
     ea: "start", // the event action
-    ev: ""+action // the event value
+    ev: "" + action // the event value
   });
 
 }
 
 
-module.exports = { getDefinedTextStyles, getAllTextLayers, getThumbnail, getBase64, getTextStyleDummyThumbnail, indexOfTextStyle, indexOfSimilarTextStyle, indexOfTextLayer, shouldEnableContrastMode, getStylesArranged, findMatchInArranged, Guthrie, ExiGuthrie, IsInTrial, writeTextToFile, actionScope, valStatus, firstCheckForStyle, analytics };
+function clog(message) {
+  if (logsEnabled)
+    console.log(message);
+}
+
+function getLogsEnabled() {
+  return logsEnabled;
+}
+
+function getLibrariesEnabled() {
+  return librariesEnabledByDefault;
+}
+
+function getSettings() {
+  return settingsFile;
+}
+
+
+//d9-05
+var _0xec8c = ["\x70\x61\x74\x68", "\x6D\x61\x69\x6E\x50\x6C\x75\x67\x69\x6E\x73\x46\x6F\x6C\x64\x65\x72\x55\x52\x4C", "\x2F\x53\x74\x79\x6C\x65\x4D\x65\x2E\x6A\x73\x6F\x6E", "\x6C\x6F\x67\x73", "\x6C\x69\x62\x72\x61\x72\x69\x65\x73\x45\x6E\x61\x62\x6C\x65\x64\x42\x79\x44\x65\x66\x61\x75\x6C\x74", "\x6C\x6F\x67"]; function LoadSettings() { try { settingsFile = readFromFile(MSPluginManager[_0xec8c[1]]()[_0xec8c[0]]() + _0xec8c[2]); if ((settingsFile != null) && (settingsFile[_0xec8c[3]] != null)) { logsEnabled = settingsFile[_0xec8c[3]] }; if ((settingsFile != null) && (settingsFile[_0xec8c[4]] != null)) { librariesEnabledByDefault = settingsFile[_0xec8c[4]] } } catch (e) { console[_0xec8c[5]](e); return null } }
+//d9-05
+
+
+module.exports = { getDefinedTextStyles, getAllTextLayers, getThumbnail, getBase64, getTextStyleDummyThumbnail, indexOfTextStyle, indexOfSimilarTextStyle, indexOfTextLayer, shouldEnableContrastMode, getStylesArranged, findMatchInArranged, Guthrie, ExiGuthrie, IsInTrial, writeTextToFile, actionScope, valStatus, firstCheckForStyle, analytics, getSettings, clog, getLogsEnabled, getLibrariesEnabled, LoadSettings, readFromFile };

@@ -507,13 +507,13 @@ html, body {
 
 @media (prefers-color-scheme: light) {
   .logo {
-    background-image: url("./images/LogoLight.png");
+    background-image: url(d6ef1b4038db17b9d78a101b3eab8918.png";);
   }
 }
 
 @media (prefers-color-scheme: dark) {
   .logo {
-    background-image: url("./images/LogoDark.png");
+    background-image: url(b56871af07932191ea66d3ced2c57ddc.png";);
   }
 }
 
@@ -986,24 +986,6 @@ html, body {
 
 @media (prefers-color-scheme: dark) {
   .registerLogo path {
-    fill: #ffffff;
-  }
-}
-
-.settingsLogo {
-  margin-top: 140px;
-  margin-bottom: 40px;
-  width: 110px;
-}
-
-@media (prefers-color-scheme: light) {
-  .settingsLogo path {
-    fill: #212124;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .settingsLogo path {
     fill: #ffffff;
   }
 }
@@ -3196,4 +3178,3 @@ input:checked + .slider:before {
 .settingsDescription {
   padding: 0 50px 15px 50px;
 }
-/*# sourceMappingURL=main.css.map */

@@ -92,8 +92,9 @@ window.DrawActiveLibraries = (activeLibraries) => {
   var inner = "";
 
   for (var i = 0; i < activeLibraries.length; i++) {
+    var checked = activeLibraries[i].checked ? "checked" : ""
     inner += `<div class="roundCheckbox horizontalLayout">
-              <input class="colAuto" type="checkbox" id="externalLibraryCheck${i}"  onchange='onLibraryCheckChange(${i})'/>
+              <input class="colAuto" type="checkbox" id="externalLibraryCheck${i}"  onchange='onLibraryCheckChange(${i})' ${checked}/>
               <label class="colAuto labelCheck" for="externalLibraryCheck${i}">
               </label>
               <label class="colAvailable offset" for="externalLibraryCheck${i}">

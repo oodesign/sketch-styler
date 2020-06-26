@@ -4,6 +4,7 @@ import UI from 'sketch/ui';
 const StylesHelpers = require("./StylesHelpers");
 const webviewIdentifier = 'assign-styles-automatically.webview';
 const webviewRegIdentifier = 'assign-styles-automatically.webviewReg';
+const Settings = require("./EditSettings");
 
 var globalTextLayers;
 var globalByArtb;
@@ -23,6 +24,10 @@ export function onReportIssue(context) {
 }
 
 export function onScanLayer(context) {
+
+  StylesHelpers.clog("----- Styler - Selected layer -----");
+
+  StylesHelpers.LoadSettings();
   StylesHelpers.analytics("ScanLayer");
   var isTextLayer = false;
   if (context.selection.length === 1) {
@@ -49,6 +54,10 @@ export function onScanLayer(context) {
 }
 
 export function onScanArtboard(context) {
+
+  StylesHelpers.clog("----- Styler - Selected artboard -----");
+
+  StylesHelpers.LoadSettings();
   StylesHelpers.analytics("ScanArtboard");
   var isArtboard = false;
   if (context.selection.length === 1) {
@@ -68,6 +77,10 @@ export function onScanArtboard(context) {
 }
 
 export function onScanPage(context) {
+
+  StylesHelpers.clog("----- Styler - Selected page -----");
+
+  StylesHelpers.LoadSettings();
   StylesHelpers.analytics("ScanPage");
   var isPageSearchable = false;
   var page = context.document.currentPage();
@@ -83,10 +96,19 @@ export function onScanPage(context) {
 }
 
 export function onScanDocument(context) {
+
+  StylesHelpers.clog("----- Styler - Whole document -----");
+
+  StylesHelpers.LoadSettings();
   StylesHelpers.analytics("ScanDocument");
   globalTriggeredAction = StylesHelpers.actionScope.DOCUMENT;
   onValidate(context);
 }
+
+export function EditSettings(context) {
+  StylesHelpers.LoadSettings();
+  Settings.EditSettings(context);
+};
 
 //d9-01
 var _0xd76e = ["\x61\x70\x70", "\x76\x61\x6C\x53\x74\x61\x74\x75\x73", "\x6F\x76\x65\x72", "\x6E\x6F\x77", "\x61\x62\x73", "\x66\x6C\x6F\x6F\x72"]; export function onValidate(_0xb471x2) { var _0xb471x3 = StylesHelpers.ExiGuthrie(); if (_0xb471x3 == StylesHelpers[_0xd76e[1]][_0xd76e[0]]) { scanTextLayers(_0xb471x2) } else { if (_0xb471x3 == StylesHelpers[_0xd76e[1]][_0xd76e[2]]) { globalIsOver = true; showRegistration(_0xb471x2) } else { var _0xb471x4 = StylesHelpers.IsInTrial(); var _0xb471x5 = new Date(parseInt(_0xb471x4)); if (_0xb471x4 != null) { var _0xb471x6 = _0xb471x5 - Date[_0xd76e[3]](); var _0xb471x7 = Math[_0xd76e[5]](Math[_0xd76e[4]](_0xb471x6 / (1000 * 3600 * 24))); globalRemainingDays = 7 - _0xb471x7; if (globalRemainingDays > 0) { globalIsInTrial = true } else { globalIsExpired = true }; showRegistration(_0xb471x2) } else { showRegistration(_0xb471x2) } } } }
@@ -110,7 +132,7 @@ export function showRegistration(context) {
 
 
   webContentsReg.on('nativeLog', s => {
-    console.log(s);
+    StylesHelpers.clog(s);
   })
 
   webContentsReg.on('OpenStylerWeb', s => {
@@ -126,6 +148,7 @@ export function showRegistration(context) {
 
 export function scanTextLayers(context) {
 
+  StylesHelpers.clog("Scanning layers");
 
   const options = {
     identifier: webviewIdentifier,
@@ -149,34 +172,38 @@ export function scanTextLayers(context) {
   webContents.on('did-finish-load', () => {
     //UI.message('UI loaded!')
 
+    StylesHelpers.clog("Web UI loaded");
     var libraries = NSApp.delegate().librariesController().libraries();
     var activeLibraries = []
+    StylesHelpers.clog("Adding linked libraries");
     libraries.forEach(function (lib) {
       if (lib.enabled()) {
         activeLibraries.push({
           "name": "" + lib.name(),
           "libraryID": "" + lib.libraryID(),
-          "checked": false
+          "checked": StylesHelpers.getLibrariesEnabled()
         });
       }
     });
     if (globalIsInTrial)
       webContents.executeJavaScript(`SetWindowTitle(${JSON.stringify(globalRemainingDays)})`).catch(console.error);
 
+
+    StylesHelpers.clog("Drawing linked libraries");
     webContents.executeJavaScript(`DrawActiveLibraries(${JSON.stringify(activeLibraries)})`).catch(console.error);
 
   })
 
   // add a handler for a call from web content's javascript
   webContents.on('nativeLog', s => {
-    console.log(s);
+    StylesHelpers.clog(s);
   })
 
 
   webContents.on('GetThumbnail', (layerID, matchingStyleIndex, markupLayerID) => {
+    StylesHelpers.clog("GetThumbnail for layer:" + layerID);
     var index = StylesHelpers.indexOfTextLayer(globalTextLayers, layerID);
     var thumbnail = StylesHelpers.getTextStyleDummyThumbnail(context, globalTextLayers[index].matchingStyles[matchingStyleIndex].textStyle.style(), globalTextLayers[index].textLayer, globalTextLayers[index].textLayer.stringValue());
-
     webContents.executeJavaScript(`DrawStyleThumbnail(${JSON.stringify(thumbnail)}, ${JSON.stringify(markupLayerID)})`).catch(console.error);
   });
 
@@ -184,6 +211,7 @@ export function scanTextLayers(context) {
 
   webContents.on('GetMeAStyle', (checkSameFont, checkSameWeight, includeSimilarWeights, checkSameSize, includeSimilarSize, checkSameColor, includeSimilarColor, checkSameParagraphSpacing, checkSameLineHeight, checkSameAlignment, checkSameCharacterSpacing, checkedActiveLibraries) => {
 
+    StylesHelpers.clog("Getting a style");
 
     globalTextLayers = [];
     var unstyledTextLayers = [];
@@ -200,15 +228,17 @@ export function scanTextLayers(context) {
     webContents.executeJavaScript(`ShowProgress(${JSON.stringify(message)})`).catch(console.error);
 
     var stylesArranged = StylesHelpers.getStylesArranged(textStyles, context, checkSameFont, checkSameWeight, includeSimilarWeights, checkSameSize, includeSimilarSize, checkSameColor, includeSimilarColor, checkSameParagraphSpacing, checkSameLineHeight, checkSameAlignment, checkSameCharacterSpacing);
+    StylesHelpers.clog("Collected arranged styles (" + stylesArranged.length + ")");
 
     var totalmatchingstyles = 0;
-    // console.log("Total text layers:" + allTextLayers.length)
+    StylesHelpers.clog("Total text layers:" + allTextLayers.length);
     for (var i = 0; i < allTextLayers.length; i++) {
 
       var matchingStylesWithArranged = StylesHelpers.findMatchInArranged(allTextLayers[i], stylesArranged, checkSameFont, checkSameWeight, includeSimilarWeights, checkSameSize, includeSimilarSize, checkSameColor, includeSimilarColor, checkSameParagraphSpacing, checkSameLineHeight, checkSameAlignment, checkSameCharacterSpacing);
+
+      StylesHelpers.clog("Found matching arranged styles:" + matchingStylesWithArranged.length);
       if (matchingStylesWithArranged.length > 0) {
         var layerThumbnail = StylesHelpers.getBase64(allTextLayers[i], allTextLayers[i].frame().width(), allTextLayers[i].frame().height());
-
 
         globalTextLayers.push({
           "textLayer": allTextLayers[i],
@@ -259,6 +289,9 @@ export function scanTextLayers(context) {
         }
 
 
+        StylesHelpers.clog("Adding unstyled text layer:" + allTextLayers[i].name() + " (in " + allTextLayers[i].parentArtboard().name() + "), that has "+matchingStyles['matchingStyles'].length+" similar styles");
+
+
         unstyledTextLayers.push({
           "layerID": "" + allTextLayers[i].objectID(),
           "isSmall": ((allTextLayers[i].frame().width() > 2000) || (allTextLayers[i].frame().height() < 28) || (allTextLayers[i].frame().height() > 100)),
@@ -294,7 +327,7 @@ export function scanTextLayers(context) {
     webContents.executeJavaScript(`HideProgress(${targetProgress})`).catch(console.error);
 
     var layersWithNoMatches = (allTextLayers.length - unstyledTextLayers.length);
-    // console.log("Text layers to style: " + unstyledTextLayers.length + ". Total matching styles: " + totalmatchingstyles+ ". Total layers with no matches styles: " + (allTextLayers.length - unstyledTextLayers.length));
+    StylesHelpers.clog("Text layers to style: " + unstyledTextLayers.length + ". Total matching styles: " + totalmatchingstyles+ ". Total layers with no matches styles: " + (allTextLayers.length - unstyledTextLayers.length));
     webContents.executeJavaScript(`DrawElements(${JSON.stringify(byArtb)},${unstyledTextLayers.length}, ${layersWithNoMatches})`).catch(console.error);
   });
 
@@ -307,7 +340,7 @@ export function scanTextLayers(context) {
     }, {});
 
   webContents.on('AssignStyles', (byArtb) => {
-    //console.log("Back in the plugin, assigning styles");
+    StylesHelpers.clog("Assigning Styles to layers");
     var stylesAsigned = 0;
     for (var artboard in globalByArtb) {
       var glob_unstyledTextLayers = globalByArtb[artboard];
@@ -317,16 +350,16 @@ export function scanTextLayers(context) {
         var textLayer = glob_unstyledTextLayers[i].textLayer;
         if (ref_unstyledTextLayers[i].assignStyle) {
           if (ref_unstyledTextLayers[i].styleLoaded == -1) {
-            //console.log("Looks like text layer '" + textLayer.name() + "' doesn't have any similar style to be applied");
+            StylesHelpers.clog("Looks like text layer '" + textLayer.name() + "' doesn't have any similar style to be applied");
           }
           else {
-            //console.log("We're gonna give '" + textLayer.name() + "' style '" + glob_unstyledTextLayers[i].matchingStyles['matchingStyles'][ref_unstyledTextLayers[i].styleLoaded].textStyle.name() + "'");
+            StylesHelpers.clog("We're gonna give '" + textLayer.name() + "' style '" + glob_unstyledTextLayers[i].matchingStyles['matchingStyles'][ref_unstyledTextLayers[i].styleLoaded].textStyle.name() + "'");
             textLayer.setSharedStyle(glob_unstyledTextLayers[i].matchingStyles['matchingStyles'][ref_unstyledTextLayers[i].styleLoaded].textStyle);
             stylesAsigned++;
           }
         }
         else {
-          //console.log("Not styling layer "+textLayer.name+" because we were told not to do so");
+          StylesHelpers.clog("Not styling layer "+textLayer.name+" because we were told not to do so");
         }
       }
     }

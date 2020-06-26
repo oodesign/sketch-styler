@@ -70,6 +70,17 @@
       "handlers": {
         "run": "onReportIssue"
       }
+    },
+    {
+      "script": "__AssignStylesAutomatically.js",
+      "name": "Settings",
+      "identifier": "editsettings",
+      "handlers": {
+        "run": "EditSettings",
+        "actions": {
+          "Shutdown": "onShutdown"
+        }
+      }
     }
   ],
   "menu": {
@@ -85,7 +96,8 @@
           "assign-styles-automatically.howstylerworks",
           "assign-styles-automatically.report_issue"
         ]
-      }
+      },
+      "editsettings"
     ]
   },
   "version": "1.4.0",
