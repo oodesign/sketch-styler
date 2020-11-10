@@ -239,7 +239,6 @@ export function scanTextLayers(context) {
       StylesHelpers.clog("Found matching arranged styles:" + matchingStylesWithArranged.length);
       if (matchingStylesWithArranged.length > 0) {
         var layerThumbnail = StylesHelpers.getBase64(allTextLayers[i], allTextLayers[i].frame().width(), allTextLayers[i].frame().height());
-
         globalTextLayers.push({
           "textLayer": allTextLayers[i],
           "layerID": allTextLayers[i].objectID(),
@@ -255,15 +254,22 @@ export function scanTextLayers(context) {
           else
             thumbnail = null;
 
+
           var sendColor = "Couldn't load color";
-          if (matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().MSAttributedStringColorAttribute != null)
+          var contrastBackground = false;
+          if (matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().MSAttributedStringColorAttribute != null) {
             sendColor = "#" + matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().MSAttributedStringColorAttribute.hexValue();
+            contrastBackground = StylesHelpers.shouldEnableContrastMode(sendColor);
+          }
+
+
+
 
           matchingStyles['matchingStyles'].push({
             "styleName": "" + matchingStylesWithArranged[j].name,
             "textStyle": matchingStylesWithArranged[j].textStyle,
             "thumbnail": thumbnail,
-            "contrastBackground": StylesHelpers.shouldEnableContrastMode(matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().MSAttributedStringColorAttribute.hexValue().toString()),
+            "contrastBackground": contrastBackground,
             "fontName": "" + matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().NSFont.familyName(),
             "fontSize": "" + matchingStylesWithArranged[j].textStyle.style().textStyle().attributes().NSFont.pointSize() + "pt",
             "color": sendColor,
@@ -281,15 +287,20 @@ export function scanTextLayers(context) {
         var sendFontSize = "Couldn't gather font size";
         var sendContrast = false;
 
+
+
+
         if (StylesHelpers.firstCheckForStyle(allTextLayers[i])) {
           sendFontName = "" + allTextLayers[i].style().textStyle().attributes().NSFont.familyName();
           sendFontSize = "" + allTextLayers[i].style().textStyle().attributes().NSFont.pointSize() + "pt";
-          sendLayerColor = "#" + allTextLayers[i].style().textStyle().attributes().MSAttributedStringColorAttribute.hexValue();
-          sendContrast = StylesHelpers.shouldEnableContrastMode(allTextLayers[i].style().textStyle().attributes().MSAttributedStringColorAttribute.hexValue().toString());
+          if (allTextLayers[i].style().textStyle().attributes().MSAttributedStringColorAttribute != null) {
+            sendLayerColor = "#" + allTextLayers[i].style().textStyle().attributes().MSAttributedStringColorAttribute.hexValue();
+            sendContrast = StylesHelpers.shouldEnableContrastMode(allTextLayers[i].style().textStyle().attributes().MSAttributedStringColorAttribute.hexValue().toString());
+          }
         }
 
 
-        StylesHelpers.clog("Adding unstyled text layer:" + allTextLayers[i].name() + " (in " + allTextLayers[i].parentArtboard().name() + "), that has "+matchingStyles['matchingStyles'].length+" similar styles");
+        StylesHelpers.clog("Adding unstyled text layer:" + allTextLayers[i].name() + " (in " + allTextLayers[i].parentArtboard().name() + "), that has " + matchingStyles['matchingStyles'].length + " similar styles");
 
 
         unstyledTextLayers.push({
@@ -327,7 +338,7 @@ export function scanTextLayers(context) {
     webContents.executeJavaScript(`HideProgress(${targetProgress})`).catch(console.error);
 
     var layersWithNoMatches = (allTextLayers.length - unstyledTextLayers.length);
-    StylesHelpers.clog("Text layers to style: " + unstyledTextLayers.length + ". Total matching styles: " + totalmatchingstyles+ ". Total layers with no matches styles: " + (allTextLayers.length - unstyledTextLayers.length));
+    StylesHelpers.clog("Text layers to style: " + unstyledTextLayers.length + ". Total matching styles: " + totalmatchingstyles + ". Total layers with no matches styles: " + (allTextLayers.length - unstyledTextLayers.length));
     webContents.executeJavaScript(`DrawElements(${JSON.stringify(byArtb)},${unstyledTextLayers.length}, ${layersWithNoMatches})`).catch(console.error);
   });
 
@@ -359,7 +370,7 @@ export function scanTextLayers(context) {
           }
         }
         else {
-          StylesHelpers.clog("Not styling layer "+textLayer.name+" because we were told not to do so");
+          StylesHelpers.clog("Not styling layer " + textLayer.name + " because we were told not to do so");
         }
       }
     }

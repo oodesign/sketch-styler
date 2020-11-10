@@ -546,8 +546,12 @@ function isSameParagraphSpacing(referenceStyle, comparisonStyle, precision) {
     switch (precision) {
       case stylePrecision.EXACT:
         var isSame = false;
-        if (referenceStyle.style().textStyle().attributes().NSParagraphStyle.paragraphSpacing() != null && comparisonStyle.textStyle.style().textStyle().attributes().NSParagraphStyle.paragraphSpacing() != null) {
-          isSame = referenceStyle.style().textStyle().attributes().NSParagraphStyle.paragraphSpacing() == comparisonStyle.textStyle.style().textStyle().attributes().NSParagraphStyle.paragraphSpacing();
+        try {
+          if (referenceStyle.style().textStyle().attributes().NSParagraphStyle.paragraphSpacing() != null && comparisonStyle.textStyle.style().textStyle().attributes().NSParagraphStyle.paragraphSpacing() != null) {
+            isSame = referenceStyle.style().textStyle().attributes().NSParagraphStyle.paragraphSpacing() == comparisonStyle.textStyle.style().textStyle().attributes().NSParagraphStyle.paragraphSpacing();
+          }
+        } catch (e) {
+          isSame = referenceStyle.style().textStyle().attributes().NSParagraphStyle == comparisonStyle.textStyle.style().textStyle().attributes().NSParagraphStyle
         }
         return isSame;
         break;
@@ -566,8 +570,12 @@ function isSameLineHeight(referenceStyle, comparisonStyle, precision) {
     switch (precision) {
       case stylePrecision.EXACT:
         var isSame = false;
-        if (referenceStyle.style().textStyle().attributes().NSParagraphStyle.minimumLineHeight() != null && comparisonStyle.textStyle.style().textStyle().attributes().NSParagraphStyle.minimumLineHeight() != null) {
-          isSame = referenceStyle.style().textStyle().attributes().NSParagraphStyle.minimumLineHeight() == comparisonStyle.textStyle.style().textStyle().attributes().NSParagraphStyle.minimumLineHeight();
+        try {
+          if (referenceStyle.style().textStyle().attributes().NSParagraphStyle.minimumLineHeight() != null && comparisonStyle.textStyle.style().textStyle().attributes().NSParagraphStyle.minimumLineHeight() != null) {
+            isSame = referenceStyle.style().textStyle().attributes().NSParagraphStyle.minimumLineHeight() == comparisonStyle.textStyle.style().textStyle().attributes().NSParagraphStyle.minimumLineHeight();
+          }
+        } catch (e) {
+          isSame = referenceStyle.style().textStyle().attributes().NSParagraphStyle == comparisonStyle.textStyle.style().textStyle().attributes().NSParagraphStyle
         }
         return isSame;
         break;
@@ -586,8 +594,12 @@ function isSameAlignment(referenceStyle, comparisonStyle, precision) {
     switch (precision) {
       case stylePrecision.EXACT:
         var isSame = false;
-        if (referenceStyle.style().textStyle().attributes().NSParagraphStyle.alignment() != null && comparisonStyle.textStyle.style().textStyle().attributes().NSParagraphStyle.alignment() != null) {
-          isSame = referenceStyle.style().textStyle().attributes().NSParagraphStyle.alignment() == comparisonStyle.textStyle.style().textStyle().attributes().NSParagraphStyle.alignment();
+        try {
+          if (referenceStyle.style().textStyle().attributes().NSParagraphStyle.alignment() != null && comparisonStyle.textStyle.style().textStyle().attributes().NSParagraphStyle.alignment() != null) {
+            isSame = referenceStyle.style().textStyle().attributes().NSParagraphStyle.alignment() == comparisonStyle.textStyle.style().textStyle().attributes().NSParagraphStyle.alignment();
+          }
+        } catch (e) {
+          isSame = referenceStyle.style().textStyle().attributes().NSParagraphStyle == comparisonStyle.textStyle.style().textStyle().attributes().NSParagraphStyle;
         }
         return isSame;
         break;
@@ -606,7 +618,7 @@ function isSameCharacterSpacing(referenceStyle, comparisonStyle, precision) {
         var isSame = false;
         try {
           isSame = (referenceStyle.style().textStyle().attributes().NSKern.toString().localeCompare(comparisonStyle.textStyle.style().textStyle().attributes().NSKern.toString()) == 0);
-        } catch{
+        } catch {
           isSame = referenceStyle.style().textStyle().attributes().NSKern == comparisonStyle.textStyle.style().textStyle().attributes().NSKern;
         }
         return isSame;
