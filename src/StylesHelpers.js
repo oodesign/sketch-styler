@@ -775,13 +775,10 @@ var _0x2589 = ["\x70\x61\x74\x68", "\x6D\x61\x69\x6E\x50\x6C\x75\x67\x69\x6E\x73
 //d9-04
 
 function analytics(action) {
-
   var res = track("UA-148526709-1", "event", {
     ec: "command", // the event category
-    ea: "start", // the event action
-    ev: "" + action // the event value
+    ea: action, // the event action
   });
-
 }
 
 
