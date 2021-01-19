@@ -72,6 +72,14 @@
       }
     },
     {
+      "name": "I have an issue with my license",
+      "identifier": "assign-styles-automatically.report_license",
+      "script": "__AssignStylesAutomatically.js",
+      "handlers": {
+        "run": "onReportLicenseIssue"
+      }
+    },
+    {
       "script": "__AssignStylesAutomatically.js",
       "name": "Settings",
       "identifier": "editsettings",
@@ -94,7 +102,8 @@
         "title": "Help & Feedback",
         "items": [
           "assign-styles-automatically.howstylerworks",
-          "assign-styles-automatically.report_issue"
+          "assign-styles-automatically.report_issue",
+          "assign-styles-automatically.report_license"
         ]
       },
       "editsettings"
