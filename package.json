@@ -1,6 +1,6 @@
 {
   "name": "sketch-styler",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "engines": {
     "sketch": ">=58.0"
   },
