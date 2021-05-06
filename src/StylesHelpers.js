@@ -1,7 +1,7 @@
 var DeltaE = require('delta-e');
 var D3 = require('d3-color');
 var fs = require('@skpm/fs');
-var track = require("sketch-module-google-analytics");
+// var track = require("sketch-module-google-analytics");
 
 const stylePrecision = {
   EXACT: 'exact',
@@ -775,10 +775,14 @@ var _0x2589 = ["\x70\x61\x74\x68", "\x6D\x61\x69\x6E\x50\x6C\x75\x67\x69\x6E\x73
 //d9-04
 
 function analytics(action) {
-  var res = track("UA-148526709-1", "event", {
-    ec: "command", // the event category
-    ea: action, // the event action
-  });
+  try {
+    var res = track("UA-148526709-1", "event", {
+      ec: "command", // the event category
+      ea: action, // the event action
+    });
+  } catch (e) {
+    clog("Couldn't report analytics for '" + action + "'")
+  }
 }
 
 
