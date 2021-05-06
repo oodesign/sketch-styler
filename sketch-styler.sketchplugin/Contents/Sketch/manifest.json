@@ -109,7 +109,7 @@
       "editsettings"
     ]
   },
-  "version": "1.5.5",
+  "version": "1.5.6",
   "disableCocoaScriptPreprocessor": true,
   "appcast": "https://raw.githubusercontent.com/oodesign/sketch-styler/master/.appcast.xml"
 }
