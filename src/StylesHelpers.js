@@ -1,7 +1,7 @@
 var DeltaE = require('delta-e');
 var D3 = require('d3-color');
 var fs = require('@skpm/fs');
-// var track = require("sketch-module-google-analytics");
+var track = require("sketch-module-google-analytics");
 
 const stylePrecision = {
   EXACT: 'exact',
@@ -94,21 +94,27 @@ function getDefinedTextStyles(context, checkedActiveLibraries) {
       if (lib.enabled()) {
         var libraryIndex = indexOfIncludedLibrary(checkedActiveLibraries, lib.libraryID());
         if ((libraryIndex >= 0) && (checkedActiveLibraries[libraryIndex].checked)) {
-          clog("-- Processing styles for library: " + lib.name() + " - " + lib.document().layerTextStyles().objects().count() + " styles");
-          lib.document().layerTextStyles().objects().forEach(function (libraryStyle) {
-            if (!alreadyInList(textStyles, libraryStyle)) {
-              var attributes = libraryStyle.style().textStyle().attributes();
-              clog("-- Including library style: " + libraryStyle.name() + "(" + lib.name() + ")");
-              textStyles.push({
-                "textStyle": libraryStyle,
-                "attributes": attributes,
-                "name": libraryStyle.name() + "(" + lib.name() + ")",
-                "libraryName": lib.name(),
-                "foreign": true,
-                "library": lib
-              });
-            }
-          });
+          if (lib.valid() == 1) {
+            clog("-- Processing styles for library: " + lib.name() + " - " + lib.document().layerTextStyles().objects().count() + " styles");
+            lib.document().layerTextStyles().objects().forEach(function (libraryStyle) {
+              if (!alreadyInList(textStyles, libraryStyle)) {
+                var attributes = libraryStyle.style().textStyle().attributes();
+                clog("-- Including library style: " + libraryStyle.name() + "(" + lib.name() + ")");
+                textStyles.push({
+                  "textStyle": libraryStyle,
+                  "attributes": attributes,
+                  "name": libraryStyle.name() + "(" + lib.name() + ")",
+                  "libraryName": lib.name(),
+                  "foreign": true,
+                  "library": lib
+                });
+              }
+            });
+          }
+          else
+          {
+            clog("-- Library '"+lib.name()+"' has been discarded as it's not available.")
+          }
         }
       }
     });

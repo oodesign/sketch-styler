@@ -196,7 +196,7 @@ export function scanTextLayers(context) {
     var activeLibraries = []
     StylesHelpers.clog("Adding linked libraries");
     libraries.forEach(function (lib) {
-      if (lib.enabled()) {
+      if (lib.enabled() && lib.valid()) {
         activeLibraries.push({
           "name": "" + lib.name(),
           "libraryID": "" + lib.libraryID(),
