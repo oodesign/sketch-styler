@@ -2,7 +2,13 @@
 
 # Sketch Styler (Sketch plugin)
 
-Styler is a Sketch plugin that assigns styles automatically to all of your unstyled layers. Find all details on www.sketchstyler.com. 
+Styler is a Sketch plugin that assigns styles automatically to all of your unstyled layers. 
+
+⚠️ <b>This plugin is discontinued</b>. It may continue to work on some projects, but we discourage using it for production work.
+
+We sincerely apologize for any inconvenience this may cause you.
+
+If you are interested on plugins to keep your design files clean, please check <a href="https://www.mergeduplicates.com">Merge Duplicates</a>.
 
 ## Assign Styles Automatically
 
